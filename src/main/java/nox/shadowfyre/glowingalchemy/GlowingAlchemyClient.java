@@ -1,4 +1,4 @@
-package nox.shadowfyre;
+package nox.shadowfyre.glowingalchemy;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;

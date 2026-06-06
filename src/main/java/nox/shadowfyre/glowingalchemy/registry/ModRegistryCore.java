@@ -1,17 +1,34 @@
 package nox.shadowfyre.glowingalchemy.registry;
 
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import nox.shadowfyre.glowingalchemy.datagen.GMOakMetadataProvider;
+import nox.shadowfyre.glowingalchemy.datagen.GroundcoverBlockTagProvider;
+import nox.shadowfyre.glowingalchemy.datagen.GroundcoverModelProvider;
 
 public class ModRegistryCore {
     public static void register(net.neoforged.bus.api.IEventBus modEventBus) {
         BlockRegistry.register(modEventBus);
+
+        modEventBus.addListener(ModRegistryCore::gatherClientData);
+        modEventBus.addListener(ModRegistryCore::gatherServerData);
     }
 
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        event.getGenerator().addProvider(true,
-                new GMOakMetadataProvider(event.getGenerator().getPackOutput()));
+    public static void gatherClientData(GatherDataEvent.Client event) {
+        event.addProvider(
+                new GroundcoverModelProvider(event.getGenerator().getPackOutput())
+        );
+    }
+
+    public static void gatherServerData(GatherDataEvent.Server event) {
+        event.addProvider(
+                new GMOakMetadataProvider(
+                        event.getGenerator().getPackOutput(),
+                        event.getLookupProvider()
+                )
+        );
+
+        event.addProvider(
+                new GroundcoverBlockTagProvider(event.getGenerator().getPackOutput())
+        );
     }
 }

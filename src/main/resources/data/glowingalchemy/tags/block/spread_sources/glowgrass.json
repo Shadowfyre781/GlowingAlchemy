@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "glowing_things:Red_glowgrass",
+    "glowing_things:Orange_glowgrass",
+    "glowing_things:Brown_glowgrass",
+    "glowing_things:Black_glowgrass",
+    "glowing_things:Gray_glowgrass",
+    "glowing_things:Light Gray_glowgrass",
+    "glowing_things:White_glowgrass",
+    "glowing_things:Yellow_glowgrass",
+    "glowing_things:Lime_glowgrass",
+    "glowing_things:Green_glowgrass",
+    "glowing_things:Cyan_glowgrass",
+    "glowing_things:Light Blue_glowgrass",
+    "glowing_things:Blue_glowgrass",
+    "glowing_things:Purple_glowgrass",
+    "glowing_things:Magenta_glowgrass",
+    "glowing_things:Pink_glowgrass",
+    "#glowing_things:glowgrass"
+
+  ]
+}

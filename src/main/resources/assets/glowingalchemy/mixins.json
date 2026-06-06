@@ -2,11 +2,10 @@
   "required": true,
   "package": "nox.shadowfyre.glowingalchemy.mixin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": [],
+  "mixins": [
+    "SpreadingSnowyBlockMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
   }
 }

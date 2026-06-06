@@ -1,43 +1,36 @@
 package nox.shadowfyre.glowingalchemy.datagen;
 
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-
-
+import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.common.data.JsonCodecProvider;
 import nox.shadowfyre.glowingalchemy.GlowingAlchemy;
 import nox.shadowfyre.glowingalchemy.registry.IntegrationMetadata;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GMOakMetadataProvider implements DataProvider {
-    private final PackOutput output;
+public class GMOakMetadataProvider extends JsonCodecProvider<IntegrationMetadata> {
 
-    public GMOakMetadataProvider(PackOutput output) {
-        this.output = output;
+    public GMOakMetadataProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(
+                output,
+                PackOutput.Target.DATA_PACK,
+                "gmoak_metadata",
+                IntegrationMetadata.CODEC,
+                lookupProvider,
+                GlowingAlchemy.MODID
+        );
     }
 
     @Override
-    public CompletableFuture<?> run(CachedOutput output) {
-        var pathProvider = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "glowing_oak_metadata");
-        List<CompletableFuture<?>> futures = new ArrayList<>();
-
-        // Replace this with your actual list of metadata
-        List<IntegrationMetadata> myMetadataList = new ArrayList<>();
-
-        for (IntegrationMetadata meta : myMetadataList) {
-            var path = pathProvider.json(ResourceLocation.fromNamespaceAndPath(GlowingAlchemy.MODID, meta.modId()));
-            futures.add(DataProvider.saveStable(output, IntegrationMetadata.CODEC, meta, path));
-        }
-
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+    protected void gather() {
+        add("iron_block", new IntegrationMetadata("minecraft", "iron_block", "iron_ingot", "iron_nugget", "ore", 0xD8D8D8));
+        add("gold_block", new IntegrationMetadata("minecraft", "gold_block", "gold_ingot", "gold_nugget", "ore", 0xFCEE4B));
+        add("copper_block", new IntegrationMetadata("minecraft", "copper_block", "copper_ingot", "copper_nugget", "ore", 0xB87333));
+        add("netherite_block", new IntegrationMetadata("minecraft", "netherite_block", "netherite_ingot", "netherite_nugget", "ore", 0x444444));
     }
 
-    @Override
-    public String getName() {
-        return "GMOak Metadata Generator";
+    private void add(String path, IntegrationMetadata metadata) {
+        unconditional(Identifier.fromNamespaceAndPath(GlowingAlchemy.MODID, path), metadata);
     }
 }

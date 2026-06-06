@@ -24,10 +24,18 @@ import org.slf4j.Logger;
 import nox.shadowfyre.glowingalchemy.datagen.GMOakMetadataProvider;
 import nox.shadowfyre.glowingalchemy.registry.BlockRegistry;
 
+import static com.mojang.realmsclient.client.RealmsError.LOGGER;
+
 @Mod(GlowingAlchemy.MODID)
 public class GlowingAlchemy {
     public static final String MODID = "glowingalchemy";
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final String GLOWING_THINGS = "glowing_things";
+    public static final String REDSTONE_INDUSTRY = "redstone_industry";
+    public static final String ELEMENTAL_ALCHEMY = "elemental_alchemy";
+
+
 
     // Constructor: Merge all initialization logic here
     public GlowingAlchemy(IEventBus modEventBus, ModContainer modContainer) {
@@ -45,6 +53,9 @@ public class GlowingAlchemy {
 
         // 3. Config
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        // This method handles the registration
+
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

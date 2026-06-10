@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/dirt",
+    "side": "glowing_things:block/clover_top",
+    "top": "glowing_things:block/clover_top"
+  }
+}

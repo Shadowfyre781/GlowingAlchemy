@@ -83,3 +83,41 @@ public class GlowPalette {
             .toList();
 
 }
+//blockshapes
+// Wood / Plank Archetype (WOOD_PLANK_SET)Used for: GlowOak, RainbOak, and your new standard trees (Maple, Chestnut, Evergreen, Poplar, and Palm).
+//new blockshape Block(Standard building block),
+//Slab (Half block),
+//Stairs (Architectural stairs),
+//Fence (Connecting fence post),
+//Fence Gate (Opening fence gate),
+//Wall (Decorative wooden wall barrier),
+//Button (Redstone input button),
+//Pressure Plate (Redstone weight sensor plate),
+//Trapdoor (Horizontal opening door),
+//Door (Vertical 2-block tall door)
+
+//2. Construction Masonry Archetype (MASONRY_SET)Used for: Asphalt, Glow Asphalt, Colored Stone, Glowing Stone, Colored Cobble, Glow Cobble, and Plastic variants.
+// Block (Standard full block cube)
+// Slab (Half block)
+// Stairs (Architectural stairs)
+// Wall (Connecting masonry wall)
+
+// 3. Deep Masonry Archetype (DEEP_MASONRY_SET)Used for: Limestone, Mossy Limestone, Marble, Mossy Marble, Colored Stone Brick, and Glowing Stone Brick.
+// Block (Standard base rock block)
+// Slab (Rock half block)
+// Stairs (Rock stairs)
+// Wall (Rock wall)
+// Bricks (Polished brick texture block)
+// Column (Vertical pillar/chiseled block variant)
+
+// 4. Marine Coral Archetype (CORAL_SET)Used for:
+// GlowCoral (Brain, Horn, Fire, Tube, Bubble), NecroCoral (Brain, Horn, Fire, Tube, Bubble).
+// Block (Solid block form)
+// Fan (Wall/floor clinging decorative cross-shape)
+//Bud (Small cluster growth crystal model variant)
+
+
+//Log (Full block, axis rotated)
+//Stripped Log (Full block, axis rotated)
+//Wood (Bark on all 6 sides)
+//Stripped Wood (Stripped bark on all 6 sides)

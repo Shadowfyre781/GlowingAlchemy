@@ -13,6 +13,11 @@ public final class GroundcoverDefinitions {
             String bottomTexture,
             String spreadFamily
     ) {
+        // Dynamically supplies the archetype to the model provider
+        public nox.shadowfyre.glowingalchemy.blocks.BlockArchetype archetype() {
+            // All current definitions here are standalone custom blocks
+            return nox.shadowfyre.glowingalchemy.blocks.BlockArchetype.SINGLE_ENTRY;
+        }
     }
 
     public static final List<GroundcoverDefinition> ALL = List.of(

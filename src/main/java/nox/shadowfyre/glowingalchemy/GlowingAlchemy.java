@@ -13,6 +13,8 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import com.mojang.logging.LogUtils;
 import nox.shadowfyre.glowingalchemy.registry.ModRegistryCore;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import nox.shadowfyre.glowingalchemy.registry.CreativeTabRegistry;
 
 @Mod(GlowingAlchemy.MODID)
 public class GlowingAlchemy {
@@ -36,7 +38,7 @@ public class GlowingAlchemy {
 
         // MANUALLY REGISTER YOUR DATA GENERATOR HERE:
        // modEventBus.addListener(ModDataGenerators::gatherData);
-
+        CreativeTabRegistry.TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
 
         // 3. Config

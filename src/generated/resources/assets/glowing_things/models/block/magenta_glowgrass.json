@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "minecraft:block/dirt",
-    "side": "glowing_things:block/magenta_glowgrass_top",
-    "top": "glowing_things:block/magenta_glowgrass_top"
-  }
-}

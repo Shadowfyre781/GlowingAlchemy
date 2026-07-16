@@ -1,11 +1,5 @@
 {
-  "itemGroup.glowingalchemy.glowingalchemy": "Glowing Alchemy",
-  "itemGroup.glowingalchemy.glowing_things_trees": "Glowing Things - Trees",
-  "itemGroup.glowingalchemy.glowing_things_stone": "Glowing Things - Stone",
-  "itemGroup.glowingalchemy.glowing_things_sand": "Glowing Things - Sand",
-  "itemGroup.glowingalchemy.glowing_things_mushrooms": "Glowing Things - Mushrooms",
-  "itemGroup.glowingalchemy.glowing_things_dirt": "Glowing Things - Dirt",
-  "itemGroup.glowingalchemy.glowing_things_misc": "Glowing Things - Misc",
+  "itemGroup.glowingalchemy": "Example Mod Tab",
   "block.glowingalchemy.example_block": "Example Block",
   "item.glowingalchemy.example_item": "Example Item",
 
@@ -16,5 +10,4 @@
   "glowingalchemy.configuration.logDirtBlock": "Log Dirt Block",
   "glowingalchemy.configuration.magicNumberIntroduction": "Magic Number Text",
   "glowingalchemy.configuration.magicNumber": "Magic Number"
-
 }

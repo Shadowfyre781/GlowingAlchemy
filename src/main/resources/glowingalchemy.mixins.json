@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "nox.shadowfyre.glowingalchemy.mixin",
+  "package": "nox.shadowfyre.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [],
   "injectors": {

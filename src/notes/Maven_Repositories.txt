@@ -1,0 +1,75 @@
+repositories {
+    // 1. Modrinth Maven (For Sodium, Iris, Lithium, BadOptimizations, Packet Fixer, etc.)
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+
+    // 2. CurseMaven (For any mods hosted on CurseForge, like Formations, Jade, etc.)
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    // 3. ParchmentMC (For modern, clean parameter mappings in your dev environment)
+    maven {
+        name = "ParchmentMC"
+        url = "https://maven.parchmentmc.org"
+    }
+}
+
+GeckoLib (Animation Engine)
+Repository URL: [https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/](https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/)
+
+Dependency Coordinate:
+implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:${geckolib_version}"
+
+Just Enough Items (JEI) & Patchouli
+Repository URL: [https://maven.blamejared.com/](https://maven.blamejared.com/) (Also acts as the fallback for many tech/magic library mods).
+
+Dependency Coordinates:
+// JEI (compileOnly for API, runtimeOnly for testing in-game)
+compileOnly "mezz.jei:jei-1.21.1-neoforge-api:${jei_version}"
+runtimeOnly "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
+
+Alternate Current & Lithium (CaffeineMC Repo)
+Repository URL: [https://maven.cafeteria.dev/](https://maven.cafeteria.dev/)
+
+Dependency Coordinates:
+
+runtimeOnly "dev.caffeine:lithium-neoforge:${lithium_version}"
+
+ModernFix (CleanroomMC Repo)
+Repository URL: [https://maven.cleanroommc.com/](https://maven.cleanroommc.com/)
+
+Dependency Coordinates:
+runtimeOnly "org.cleanroommc:modernfix-neoforge:${modernfix_version}"
+
+Modrinth & CurseMaven Direct Mappings (Quick Reference)For the mods that don't host dedicated Maven servers, you can pull them instantly using their Modrinth Slug or CurseForge Project ID.
+Modrinth Format
+To pull from Modrinth, the format is maven.modrinth:<slug>:<version_id_or_version_string>.
+Mod
+Modrinth Slug
+Example Build.gradle Coordinate
+Packet Fixerpacket-fixerruntimeOnly "maven.modrinth:packet-fixer:1.4.1-1.21.1-neoforge"
+SodiumsodiumruntimeOnly "maven.modrinth:sodium:mc1.21.1-0.9.1-neoforge"
+Iris
+iris
+runtimeOnly "maven.modrinth:iris:1.11.2+mc1.21.1-neoforge"
+BadOptimizations
+badoptimizations
+runtimeOnly "maven.modrinth:badoptimizations:2.4.1-26.2-forge"
+Mouse Tweaks
+mouse-tweaks
+runtimeOnly "maven.modrinth:mouse-tweaks:2.31-mc1.21.1"
+
+Mod,Project ID,Example Build.gradle Coordinate
+Jade,324717,"implementation ""curse.maven:jade-324717:5589110"""
+AppleSkin,248720,"implementation ""curse.maven:appleskin-248720:5612345"""
+Formations,516616,"implementation ""curse.maven:formations-516616:5523456"""

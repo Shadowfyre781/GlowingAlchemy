@@ -56,7 +56,7 @@ public class BlockFamilyModelProvider implements DataProvider {
     public BlockFamilyModelProvider(PackOutput output) {
         this.blockModels = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
         this.blockStates = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
-        this.clientItems = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
+        this.clientItems = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item");
     }
 
     @Override

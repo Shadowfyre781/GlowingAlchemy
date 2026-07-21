@@ -37,6 +37,17 @@ public class BlockDefinitions {
             new BlockDefinition("Palm", "leaves", null, "unique", List.of("palm_leaves"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "palm_leaves"),
             new BlockDefinition("Palm", "log", null, "unique", List.of("palm_log"), BlockArchetype.MASONRY_SET, "glowingalchemy", "palm_log"),
             new BlockDefinition("Palm", "plank", null, "unique", List.of("palm_planks"), BlockArchetype.WOOD_PLANK_SET, "glowingalchemy", "palm_plank"),
+            new BlockDefinition("Willow", "leaves", null, "unique", List.of("willow_leaves"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "willow_leaves"),
+            new BlockDefinition("Willow", "canes", null, "unique", List.of("willow_canes"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "willow_canes"),
+            new BlockDefinition("Willow", "log", null, "unique", List.of("willow_log"), BlockArchetype.MASONRY_SET, "glowingalchemy", "willow_log"),
+            new BlockDefinition("Willow", "plank", null, "unique", List.of("willow_planks"), BlockArchetype.WOOD_PLANK_SET, "glowingalchemy", "willow_plank"),
+            new BlockDefinition("Redwood", "canes", null, "unique", List.of("redwood_leaves"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "redwood_plank"),
+            new BlockDefinition("Redwood", "log", null, "unique", List.of("redwood_log"), BlockArchetype.MASONRY_SET, "glowingalchemy", "redwood_log"),
+            new BlockDefinition("Redwood", "plank", null, "unique", List.of("redwood_planks"), BlockArchetype.WOOD_PLANK_SET, "glowingalchemy", "willow_plank"),
+            new BlockDefinition("Aspen", "canes", null, "unique", List.of("aspen_leaves"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "aspen_leaves"),
+            new BlockDefinition("Aspen", "log", null, "unique", List.of("aspen_log"), BlockArchetype.MASONRY_SET, "glowingalchemy", "aspen_log"),
+            new BlockDefinition("Aspen", "plank", null, "unique", List.of("aspen_planks"), BlockArchetype.WOOD_PLANK_SET, "glowingalchemy", "aspen_plank"),
+            new BlockDefinition("Aspen", "roots", null, "unique", List.of("aspen_roots"), BlockArchetype.WOOD_PLANK_SET, "glowingalchemy", "aspen_plank"),
 
             // ==========================================
             // 2. GLOWING THINGS (Standard Block Shapes)
@@ -114,11 +125,19 @@ public class BlockDefinitions {
             new BlockDefinition("Netherdust", "standard", null, "unique", List.of("dust"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "netherdust"),
             new BlockDefinition("Ashdust", "standard", null, "unique", List.of("ashdust"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "ashdust"),
             new BlockDefinition("Biofilm", "standard", null, "unique", List.of("dust"), BlockArchetype.SINGLE_ENTRY, "glowingalchemy", "biofilm"),
+            new BlockDefinition("Clover", "carpet",null, "unique", List.of("clover_carpet"),BlockArchetype.SINGLE_ENTRY,"glowingalchemy", "clover_carpet"),
+            new BlockDefinition("Clover", "spreading",null, "unique", List.of("clover_spread"),BlockArchetype.SINGLE_ENTRY,"glowingalchemy", "clover_spread"),
+            new BlockDefinition("Clover", "growth",null, "unique", List.of("clover_growth"),BlockArchetype.SINGLE_ENTRY,"glowingalchemy", "clover_growth"),
+            new BlockDefinition("Clover", "flowers",null, "unique", List.of("clover_flowers"),BlockArchetype.SINGLE_ENTRY,"glowingalchemy", "clover_flowers"),
+
+
 
             // -- Glowing Things Non-Blocks --
             new BlockDefinition("Illumiglass", "pane", 15, "full16", List.of("glass_pane"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_illumiglass_pane"),
             new BlockDefinition("Illumiglass", "clear_pane", 15, "unique", List.of("glass_pane"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "illumiglass_pane"),
-            new BlockDefinition("Clover", "carpet", null, "full16", List.of("clover_block"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
+            new BlockDefinition("Clover", "carpet", null, "full16", List.of("clover_carpet"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
+            new BlockDefinition("Clover", "growth", null, "full16", List.of("clover_growth"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
+            new BlockDefinition("Clover", "flowers", null, "full16", List.of("clover_flowers"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
             new BlockDefinition("Citrine", "bud", null, "full16", List.of("citrine_bud"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud"),
             new BlockDefinition("Citrine", "bud1", null, "full16", List.of("citrine_bud_1"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud1"),
             new BlockDefinition("Citrine", "bud2", null, "full16", List.of("citrine_bud_2"), BlockArchetype.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud2"),

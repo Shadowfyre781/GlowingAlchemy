@@ -1,0 +1,6 @@
+{
+  "parent": "glowing_things:block/template_tinted_cube_all",
+  "textures": {
+    "all": "glowing_things:block/glowlantern_1"
+  }
+}

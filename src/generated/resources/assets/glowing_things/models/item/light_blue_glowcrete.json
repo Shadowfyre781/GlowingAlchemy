@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/light_blue_glowcrete",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -16744193
+      }
+    ]
+  }
+}

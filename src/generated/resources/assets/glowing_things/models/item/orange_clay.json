@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/orange_clay",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -32768
+      }
+    ]
+  }
+}

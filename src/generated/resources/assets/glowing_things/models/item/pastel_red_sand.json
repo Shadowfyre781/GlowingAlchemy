@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/pastel_red_sand",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -32640
+      }
+    ]
+  }
+}

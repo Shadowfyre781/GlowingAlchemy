@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/orange_glow_asphalt",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -32768
+      }
+    ]
+  }
+}

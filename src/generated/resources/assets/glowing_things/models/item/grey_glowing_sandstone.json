@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/grey_glowing_sandstone",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -11184811
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "glowing_things:block/bold_brown_glowsand",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -12574720
+      }
+    ]
+  }
+}

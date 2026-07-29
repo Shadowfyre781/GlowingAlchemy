@@ -1,20 +1,6 @@
 package nox.shadowfyre.glowingalchemy.datagen;
 
-import com.google.gson.JsonObject;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
-import nox.shadowfyre.glowingalchemy.registry.BlockDefinition;
-import nox.shadowfyre.glowingalchemy.registry.BlockFamilyRegistry;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-/**
+/*
  * Generates blockstates/models/item-models for everything in BlockFamilyRegistry.
  *
  * LIMITATION: only generates the "block" shape right now, matching what
@@ -26,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
  * UNLESS they appear in VANILLA_SOURCED, in which case they resolve against
  * minecraft: instead (per Mike's call to source stone/cobblestone/etc. directly
  * from vanilla rather than keeping local copies).
- */
+
 public class BlockFamilyModelProvider implements DataProvider {
 
     // texture name (as written in the CSV) -> actual vanilla texture id
@@ -90,7 +76,7 @@ public class BlockFamilyModelProvider implements DataProvider {
     /**
      * Helper to resolve where a texture should point.
      * If the block is tinted/glowing, we bypass VANILLA_SOURCED so it grabs your local asset.
-     */
+     *
     private String resolveTexture(String raw, String namespace, boolean tinted) {
         if (raw.contains(":")) {
             // already a full reference like "minecraft:clay" -- normalize to block/ path
@@ -156,7 +142,7 @@ public class BlockFamilyModelProvider implements DataProvider {
      * model. Tinted blocks get a "minecraft:constant" tint source baked in
      * for tintindex 0 -- no separate ItemTintSource event needed for a
      * fixed color.
-     */
+     *
     private CompletableFuture<?> saveClientItem(CachedOutput output, BlockDefinition def, String id, Integer tintColor) {
         JsonObject root = new JsonObject();
         JsonObject model = new JsonObject();
@@ -252,3 +238,4 @@ public class BlockFamilyModelProvider implements DataProvider {
         return "Glowing Alchemy Block Family Models";
     }
 }
+*/

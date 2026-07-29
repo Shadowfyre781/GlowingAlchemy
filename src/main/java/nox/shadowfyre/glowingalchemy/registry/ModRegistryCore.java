@@ -1,11 +1,6 @@
 package nox.shadowfyre.glowingalchemy.registry;
 
-import net.neoforged.neoforge.data.event.GatherDataEvent;
-import nox.shadowfyre.glowingalchemy.datagen.BlockFamilyModelProvider;
-import nox.shadowfyre.glowingalchemy.datagen.GMOakMetadataProvider;
-import nox.shadowfyre.glowingalchemy.datagen.GroundcoverBlockTagProvider;
-import nox.shadowfyre.glowingalchemy.datagen.GroundcoverModelProvider;
-
+/*
 public class ModRegistryCore {
     public static void register(net.neoforged.bus.api.IEventBus modEventBus) {
         BlockRegistry.register(modEventBus);
@@ -34,3 +29,4 @@ public class ModRegistryCore {
         );
     }
 }
+*/

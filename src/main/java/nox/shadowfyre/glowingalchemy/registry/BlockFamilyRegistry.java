@@ -1,110 +1,109 @@
 package nox.shadowfyre.glowingalchemy.registry;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
-import nox.shadowfyre.glowingalchemy.glowing_things.GlowColor;
-import nox.shadowfyre.glowingalchemy.glowing_things.GlowPalette;
+/*
+public final class BlockFamilyRegistry {
+    public static final Map<Identifier, BlockDefinition> REGISTERED_DEFS = new HashMap<>();
+    public static final Map<Identifier, Block> REGISTERED_BLOCKS = new HashMap<>();
+    public static final Map<Identifier, Integer> BLOCK_TINTS = new HashMap<>();
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    private BlockFamilyRegistry() {
+    }
 
-/**
- * Expands BlockDefinitions.ALL into real registered blocks, looping over the
- * matching GlowColor palette for each definition's colorGroup.
- *
- * NOTE: currently every block registers as a plain Block regardless of archetype
- * (i.e. only the "block" shape). Stairs/slabs/walls/fences/etc. for MASONRY_SET,
- * DEEP_MASONRY_SET and WOOD_PLANK_SET are NOT yet generated -- that's the next
- * follow-up piece, alongside the model/blockstate datagen provider.
- */
-public class BlockFamilyRegistry {
+    public static void registerDefinition(BlockDefinition definition) {
+        Identifier familyId = Identifier.parse(definition.namespace() + ":" + definition.familyId());
+        REGISTERED_DEFS.put(familyId, definition);
+    }
 
-    // Keyed by resolved block id. Used later by the datagen provider and the
-    // client-side BlockColor tint handler.
-    public static final Map<String, DeferredBlock<Block>> REGISTERED_BLOCKS = new HashMap<>();
-    public static final Map<String, GlowColor> BLOCK_TINTS = new HashMap<>();
-    public static final Map<String, BlockDefinition> REGISTERED_DEFS = new HashMap<>();
+    public static void expandAndRegisterAll() {
+        for (BlockDefinition definition : REGISTERED_DEFS.values()) {
+            expandAndRegister(definition);
+        }
+    }
 
-    public static void registerAll() {
-        for (BlockDefinition def : BlockDefinitions.ALL) {
-            List<GlowColor> colors = colorsFor(def.colorGroup());
+    public static void expandAndRegister(BlockDefinition definition) {
+        String namespace = definition.namespace();
+        String familyId = definition.familyId();
+        BlockShapeTemplate archetype = definition.BlockShape();
 
-            if (colors.isEmpty()) {
-                registerOne(def, null);
-            } else {
-                for (GlowColor color : colors) {
-                    registerOne(def, color);
+        for (String colorName : definition.colors()) {
+            for (String shape : archetype.shapes()) {
+                String shapeId = definition.resolveShapeId(shape, colorName);
+                Identifier blockId = Identifier.parse(namespace + ":" + familyId + "/" + shapeId);
+
+                if (REGISTERED_BLOCKS.containsKey(blockId)) {
+                    continue;
+                }
+
+                Block block = createBlockForShape(shape, definition, colorName);
+                REGISTERED_BLOCKS.put(blockId, block);
+
+                if (isTintedDefinition(definition)) {
+                    BLOCK_TINTS.put(blockId, resolveVanillaTintColor(colorName));
                 }
             }
         }
     }
 
-    private static void registerOne(BlockDefinition def, GlowColor color) {
-        String id = def.resolveId(color);
+    public static Block createBlockForShape(String shape, BlockDefinition definition, String colorName) {
+        String shapeKey = shape.toLowerCase();
 
-        if (REGISTERED_BLOCKS.containsKey(id)) {
-            throw new IllegalStateException("Duplicate block id generated: " + id
-                    + " (family=" + def.family() + ", variant=" + def.variant() + ")");
-        }
-
-        MapColor mapColor = color != null ? color.mapColor() : MapColor.STONE; // TODO: per-family map color for unique/none entries
-        int light = def.lightLevel() != null ? def.lightLevel() : 0;
-
-        var register = def.namespace().equals("glowingalchemy")
-                ? BlockRegistry.BLOCKS
-                : BlockRegistry.GLOWING_THINGS_BLOCKS;
-        var itemRegister = def.namespace().equals("glowingalchemy")
-                ? BlockRegistry.ITEMS
-                : BlockRegistry.GLOWING_THINGS_ITEMS;
-
-        DeferredBlock<Block> block = register.registerBlock(id, properties -> new Block(properties
-                .mapColor(mapColor)
-                .strength(1.5F) // TODO: per-family strength/sound once those are added to the CSV
-                .lightLevel(state -> light)
-        ));
-
-        DeferredItem<BlockItem> item = itemRegister.registerSimpleBlockItem(block);
-
-        REGISTERED_BLOCKS.put(id, block);
-        REGISTERED_DEFS.put(id, def);
-        if (color != null) {
-            BLOCK_TINTS.put(id, color);
-        }
-    }
-
-    private static List<GlowColor> colorsFor(String colorGroup) {
-        return switch (colorGroup) {
-            case "full16" -> GlowPalette.FULL_16;
-            case "pastel" -> GlowPalette.PASTELS;
-            case "bold" -> GlowPalette.BOLDS;
-            case "monochrome" -> GlowPalette.MONOCHROME;
-            case "rainbow" -> GlowPalette.COLORS.stream()
-                    .filter(c -> c.name().equals("rainbow"))
-                    .toList();
-            case "unique", "none" -> List.of(); // registered once, no palette color
-            default -> resolveExplicitColorList(colorGroup);
+        return switch (shapeKey) {
+            case "stair", "stairs" -> new StairBlock(Blocks.STONE.defaultBlockState(), defaultProperties());
+            case "slab" -> new SlabBlock(defaultProperties());
+            case "wall" -> new WallBlock(defaultProperties());
+            case "fence" -> new FenceBlock(defaultProperties());
+            case "fence_gate" -> new FenceGateBlock(defaultProperties(), null);
+            case "pressure_plate" -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, defaultProperties());
+            case "button" -> new ButtonBlock(defaultProperties(), false);
+            case "trapdoor" -> new TrapDoorBlock(defaultProperties(), false);
+            case "door" -> new DoorBlock(defaultProperties(), null);
+            default -> new Block(defaultProperties());
         };
     }
 
-    /** Handles comma-separated explicit color names, e.g. "red,green,bold_purple,pink,pastel_purple". */
-    private static List<GlowColor> resolveExplicitColorList(String colorGroup) {
-        List<GlowColor> result = new java.util.ArrayList<>();
-        for (String rawName : colorGroup.split(",")) {
-            String name = rawName.trim();
-            GlowColor match = GlowPalette.COLORS.stream()
-                    .filter(c -> c.name().equals(name))
-                    .findFirst()
-                    .orElse(null);
-            if (match == null) {
-                throw new IllegalStateException("Unknown color name '" + name
-                        + "' in explicit color list \"" + colorGroup + "\" -- check GlowPalette.COLORS for the exact name");
+    public static List<Identifier> getBlockIdsForDefinition(BlockDefinition definition) {
+        List<Identifier> ids = new ArrayList<>();
+
+        for (String colorName : definition.colors()) {
+            for (String shape : definition.BlockShape().shapes()) {
+                String shapeId = definition.resolveShapeId(shape, colorName);
+                ids.add(Identifier.parse(definition.namespace() + ":" + definition.familyId() + "/" + shapeId));
             }
-            result.add(match);
         }
-        return result;
+
+        return ids;
+    }
+
+    public static boolean isTintedDefinition(BlockDefinition definition) {
+        return definition.baseTextureId() != null && definition.baseTextureId().contains("tint");
+    }
+
+    public static int resolveVanillaTintColor(String colorName) {
+        return switch (colorName) {
+            case "white" -> 0xFFFFFFFF;
+            case "orange" -> 0xFFF9801D;
+            case "magenta" -> 0xFFC74EBD;
+            case "light_blue" -> 0xFF3AB3DA;
+            case "yellow" -> 0xFFFED83D;
+            case "lime" -> 0xFF80C71F;
+            case "pink" -> 0xFFF38BAA;
+            case "gray" -> 0xFF474F52;
+            case "light_gray" -> 0xFF9D9D97;
+            case "cyan" -> 0xFF169C9C;
+            case "purple" -> 0xFF8932B8;
+            case "blue" -> 0xFF3C44AA;
+            case "brown" -> 0xFF835432;
+            case "green" -> 0xFF5E7C16;
+            case "red" -> 0xFFB02E26;
+            case "black" -> 0xFF1D1D21;
+            case "neutral" -> 0xFFD8D8D8;
+            default -> 0xFFFFFFFF;
+        };
+    }
+
+    private static BlockBehaviour.Properties defaultProperties() {
+        return BlockBehaviour.Properties.of();
     }
 }
+*/
+ 

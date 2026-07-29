@@ -1,23 +1,12 @@
 package nox.shadowfyre.glowingalchemy.registry;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import nox.shadowfyre.glowingalchemy.GlowingAlchemy;
-
-import java.util.Set;
-import java.util.function.Supplier;
-
 /**
  * Creative tabs for browsing everything BlockFamilyRegistry generated, without
  * needing /give. Split: one catch-all tab for the glowingalchemy namespace,
  * and five themed tabs for glowing_things (plus one "misc" tab for
  * glowing_things items -- glass/illumiglass/citrine -- that don't fit any of
  * the five requested categories).
- */
+
 public class CreativeTabRegistry {
 
     public static final DeferredRegister<CreativeModeTab> TABS =
@@ -86,3 +75,4 @@ public class CreativeTabRegistry {
                 .build();
     }
 }
+ */

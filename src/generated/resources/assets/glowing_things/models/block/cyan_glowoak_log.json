@@ -1,7 +1,0 @@
-{
-  "parent": "glowing_things:block/template_tinted_cube_column",
-  "textures": {
-    "end": "glowing_things:block/pale_log_top",
-    "side": "glowing_things:block/oak"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "glowingalchemy:block/template_tinted_cube_all",
-  "textures": {
-    "all": "glowingalchemy:block/maple_leaves"
-  }
-}

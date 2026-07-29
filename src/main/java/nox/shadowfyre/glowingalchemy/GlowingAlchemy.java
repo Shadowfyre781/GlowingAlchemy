@@ -1,6 +1,7 @@
 package nox.shadowfyre.glowingalchemy;
 
-import net.minecraft.world.item.*;
+import com.mojang.logging.LogUtils;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -10,11 +11,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import com.mojang.logging.LogUtils;
-import nox.shadowfyre.glowingalchemy.registry.ModRegistryCore;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import nox.shadowfyre.glowingalchemy.registry.CreativeTabRegistry;
+//import nox.shadowfyre.glowingalchemy.registry.CreativeTabRegistry;
 
 @Mod(GlowingAlchemy.MODID)
 public class GlowingAlchemy {
@@ -30,7 +28,7 @@ public class GlowingAlchemy {
     // Constructor: Merge all initialization logic here
     public GlowingAlchemy(IEventBus modEventBus, ModContainer modContainer) {
         // Just call your registry logic
-        ModRegistryCore.register(modEventBus);
+        //ModRegistryCore.register(modEventBus);
 
         // 2. Setup Events
         modEventBus.addListener(this::commonSetup);
@@ -38,7 +36,7 @@ public class GlowingAlchemy {
 
         // MANUALLY REGISTER YOUR DATA GENERATOR HERE:
        // modEventBus.addListener(ModDataGenerators::gatherData);
-        CreativeTabRegistry.TABS.register(modEventBus);
+        //CreativeTabRegistry.TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
 
         // 3. Config

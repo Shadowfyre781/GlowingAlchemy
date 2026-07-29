@@ -1,5 +1,7 @@
 package nox.shadowfyre.glowingalchemy.datagen;
 
+import nox.shadowfyre.glowingalchemy.blocks.BlockShapeTemplate;
+
 import java.util.List;
 
 public final class GroundcoverDefinitions {
@@ -13,10 +15,10 @@ public final class GroundcoverDefinitions {
             String bottomTexture,
             String spreadFamily
     ) {
-        // Dynamically supplies the archetype to the model provider
-        public nox.shadowfyre.glowingalchemy.blocks.BlockArchetype archetype() {
+        // Dynamically supplies the BlockShape to the model provider
+        public BlockShapeTemplate archetype() {
             // All current definitions here are standalone custom blocks
-            return nox.shadowfyre.glowingalchemy.blocks.BlockArchetype.SINGLE_ENTRY;
+            return BlockShapeTemplate.SINGLE_ENTRY;
         }
     }
 

@@ -5,7 +5,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier; // Corrected: Using the updated Mojang mapping name
-import nox.shadowfyre.glowingalchemy.blocks.BlockArchetype;
+import nox.shadowfyre.glowingalchemy.blocks.BlockShapeTemplate;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class GroundcoverModelProvider implements DataProvider {
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
         for (var def : GroundcoverDefinitions.ALL) {
-            BlockArchetype archetype = def.archetype();
+            BlockShapeTemplate archetype = def.archetype();
 
             for (String shape : archetype.getAssociatedShapes()) {
                 if (shape.equals("block")) {

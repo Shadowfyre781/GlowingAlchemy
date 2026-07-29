@@ -1,6 +1,8 @@
 package nox.shadowfyre.glowingalchemy.glowing_things;
 
 import net.minecraft.world.level.material.MapColor;
+import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowColor;
+
 import java.util.List;
 
 

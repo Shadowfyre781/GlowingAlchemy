@@ -90,10 +90,10 @@ public final class GlowSets {
                             GRAY,
                             NEUTRAL_GRAY,
                             LIGHT_GRAY,
-                            WHITE,
-                            LIGHT_GRAY,
-                            NEUTRAL_GRAY,
-                            GRAY
+                            WHITE
+                           // LIGHT_GRAY,
+                            //NEUTRAL_GRAY,
+                           // GRAY
                     ));
 
     public static final GlowSet ALL_18=
@@ -159,5 +159,5 @@ public final class GlowSets {
     );
     public static final GlowSet NONE =
             new GlowSet("None", List.of());
-};
+};//defines custom boxes of crayons
 

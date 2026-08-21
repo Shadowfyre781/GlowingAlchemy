@@ -55,4 +55,4 @@ shape.hasItemModel()
 shape.isDirectional()
 shape.isMultipart()
     */
-}
+}//defines a blockshape

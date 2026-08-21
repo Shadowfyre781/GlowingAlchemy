@@ -1,8 +1,9 @@
 package nox.shadowfyre.glowingalchemy.registry;
 
 import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowColor;
-
+import net.minecraft.world.level.block.Block;
 
 
 
@@ -23,6 +24,11 @@ import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowColor;
             return definition.namespace();}
         public Identifier id()  {
             return Identifier.parse(namespace() + ":" + name());}
+
+
+
+
+
 
         //generatedBlock.blockName();
         //generatedBlock.texture();

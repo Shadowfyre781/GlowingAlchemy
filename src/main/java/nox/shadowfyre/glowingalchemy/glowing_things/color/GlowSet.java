@@ -51,4 +51,4 @@ public boolean isEmpty() {
 public boolean hasColors() {
     return !colors.isEmpty();
 }
-}
+}//defines what a box of crayons is

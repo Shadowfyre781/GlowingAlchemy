@@ -1,111 +1,292 @@
 package nox.shadowfyre.glowingalchemy.glowing_things.registry;
 
-// AUTO-GENERATED from block_definitions_v2.csv. Do not hand-edit -- re-run gen_blockdefs.py instead.
-//
-// SKIPPED ROWS (need follow-up before they can generate):
-//   - GlowCoral (brain,horn,fire,tube,bubble) - coral: needs nested type x shape x color loop, handled separately
-//   - NecroCoral (brain,horn,fire,tube,bubble) - coral: needs nested type x shape x color loop, handled separately
-//   - Citrine raw_budding - composite texture (block+overlay), needs compositing step like ores
-//   - Lanternfruit seeds - likely needs a custom crop/seed Item class, not a plain Block
-//   - Glow Lanternfruit seeds - likely needs a custom crop/seed Item class, not a plain Block
-//   - GlowshroomCap - no texture reference specified yet
-//   - GlowingMycelium - no texture reference specified yet
-//   - ColoredMoss - no texture reference specified yet
-//   - GlowingMoss - no texture reference specified yet
+import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowSets;
+import nox.shadowfyre.glowingalchemy.registry.BlockDefinition;
+import nox.shadowfyre.glowingalchemy.registry.BlockDefinitionRegistry;
+import nox.shadowfyre.glowingalchemy.registry.BlockShapes;
+import nox.shadowfyre.glowingalchemy.registry.NamingTemplate;
+import java.util.List;
 
-public class GT_BlockDefinitions {
-//    public static final List<BlockDefinition> ALL = List.of(
+    public class GT_BlockDefinitions {
 
-/*
-         ("GlowDirt", "dirt", null, "full16", List.of("dirt"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowoak_leaves"),
-       ("GlowOak", "leaves", 15, "rainbow", List.of("pale_leaves"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowoak_leaves"),
-       ("GlowOak", "log", 10, "full16", List.of("pale_log_top", "oak"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glowoak_log"),
-       ("GlowOak", "plank", 15, "full16", List.of("pale_planks"), BlockShapeTemplate.WOOD_PLANK_SET, "glowing_things", "{color}_glowoak_plank"),
-       ("RainbOak", "leaves", null, "full16", List.of("pale_leaves"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_rainboak_leaves"),
-       ("RainbOak", "leaves", null, "rainbow", List.of("pale_leaves"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_rainboak_leaves"),
-       ("RainbOak", "log", null, "full16", List.of("paleoak_log_top", "paleoak_log"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_rainboak_log"),
-       ("RainbOak", "plank", null, "full16", List.of("pale_planks"), BlockShapeTemplate.WOOD_PLANK_SET, "glowing_things", "{color}_rainboak_plank"),
-       ("Asphalt", "standard", null, "full16", List.of("asphalt"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_asphalt"),
-       ("Glow Asphalt", "glowing", 8, "full16", List.of("asphalt"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_asphalt"),
-       ("Concrete", "standard", null, "full16", List.of("concrete"), BlockShapeTemplate.ADD_ON_MASONRY_SET, "glowing_things", "{color}_concrete"),
-       ("Glow Crete", "glowing", 8, "full16", List.of("concrete"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glowcrete"),
-       ("Colored Stone", "standard", null, "full16", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone"),
-       ("Colored Stone", "standard", null, "pastel", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone"),
-       ("Colored Stone", "standard", null, "bold", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone"),
-       ("Glowing Stone", "glowing", 8, "full16", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone"),
-       ("Glowing Stone", "glowing", 8, "pastel", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone"),
-       ("Glowing Stone", "glowing", 8, "bold", List.of("stone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone"),
-       ("Colored Stone Brick", "standard", null, "full16", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone_brick"),
-       ("Colored Stone Brick", "standard", null, "pastel", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone_brick"),
-       ("Colored Stone Brick", "standard", null, "bold", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_stone_brick"),
-       ("Glowing Stone Brick", "glowing", 8, "full16", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone_brick"),
-       ("Glowing Stone Brick", "glowing", 8, "pastel", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone_brick"),
-       ("Glowing Stone Brick", "glowing", 8, "bold", List.of("stone_brick"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_stone_brick"),
-       ("Colored Cobble", "standard", null, "full16", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_cobblestone"),
-       ("Colored Cobble", "standard", null, "pastel", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_cobblestone"),
-       ("Colored Cobble", "standard", null, "bold", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_cobblestone"),
-       ("Glowing Cobble", "glowing", 8, "full16", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowcobble"),
-       ("Glowing Cobble", "glowing", 8, "pastel", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowcobble"),
-       ("Glowing Cobble", "glowing", 8, "bold", List.of("cobblestone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowcobble"),
-       ("Plastic", "standard", null, "full16", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_plastic"),
-       ("Plastic", "standard", null, "pastel", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_plastic"),
-       ("Plastic", "standard", null, "bold", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_plastic"),
-       ("Glowplastic", "glowing", 15, "full16", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowplastic"),
-       ("Glowplastic", "glowing", 15, "pastel", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowplastic"),
-       ("Glowplastic", "glowing", 15, "bold", List.of("plastic"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowplastic"),
-       ("Colored Sand", "standard", null, "full16", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_sand"),
-       ("Colored Sand", "standard", null, "pastel", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_sand"),
-       ("Colored Sand", "standard", null, "bold", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_sand"),
-       ("Glowsand", "glowing", 8, "full16", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowsand"),
-       ("Glowsand", "glowing", 8, "pastel", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowsand"),
-       ("Glowsand", "glowing", 8, "bold", List.of("sand"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowsand"),
-       ("Colored Sandstone", "standard", null, "full16", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_sandstone"),
-       ("Colored Sandstone", "standard", null, "pastel", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_sandstone"),
-       ("Colored Sandstone", "standard", null, "bold", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_sandstone"),
-       ("Glowing Sandstone", "glowing", 8, "full16", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_sandstone"),
-       ("Glowing Sandstone", "glowing", 8, "pastel", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_sandstone"),
-       ("Glowing Sandstone", "glowing", 8, "bold", List.of("sandstone"), BlockShapeTemplate.DEEP_MASONRY_SET, "glowing_things", "{color}_glowing_sandstone"),
-       ("Colored Glass", "standard", null, "full16", List.of("glass"), BlockShapeTemplate.ADD_ON_MASONRY_SET, "glowing_things", "{color}_glass"),
-       ("Illumiglass", "block", 15, "full16", List.of("glass"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_illumiglass"),
-       ("Illumiglass", "clear_block", 15, "unique", List.of("glass"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "illumiglass"),
-       ("Clover", "block", null, "full16", List.of("clover_block"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_clover"),
-       ("Clay", "block", null, "full16", List.of("minecraft:clay"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_clay"),
-       ("GlowClay", "block", null, "full16", List.of("minecraft:clay"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glow_clay"),
-       ("Citrine", "ore", null, "unique", List.of("citrine_ore"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "citrine_ore"),
-       ("Citrine", "block", 15, "full16", List.of("citrine_block"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine"),
-       ("Glowmist", "standard", 15, "unique", List.of("fog"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "glowmist"),
-       ("GlowIce", "standard", 5, "pastel", List.of("minecraft:ice"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_ice"),
-       ("GlowIce", "standard", 5, "monochrome", List.of("minecraft:ice"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_ice"),
-       ("GlowingPackedIce", "standard", 10, "full16", List.of("minecraft:packed_ice"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_packed_ice"),
-       ("GlowingPermafrost", "standard", 15, "bold", List.of("minecraft:blue_ice"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_permafrost"),
-       ("GlowingPermafrost", "standard", 15, "monochrome", List.of("minecraft:blue_ice"), BlockShapeTemplate.MASONRY_SET, "glowing_things", "{color}_glow_permafrost"),
-");
-        // -- Glowing Things Non-Blocks --
-       ("Illumiglass", "pane", 15, "full16", List.of("glass_pane"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_illumiglass_pane"),
-       ("Illumiglass", "clear_pane", 15, "unique", List.of("glass_pane"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "illumiglass_pane"),
-       ("Clover", "carpet", null, "full16", List.of("clover_carpet"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
-       ("Clover", "growth", null, "full16", List.of("clover_growth"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
-       ("Clover", "flowers", null, "full16", List.of("clover_flowers"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_clover_carpet"),
-       ("Citrine", "bud", null, "full16", List.of("citrine_bud"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud"),
-       ("Citrine", "bud1", null, "full16", List.of("citrine_bud_1"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud1"),
-       ("Citrine", "bud2", null, "full16", List.of("citrine_bud_2"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine_bud2"),
-       ("Citrine", "crystal", 15, "full16", List.of("citrine_crystal"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine_crystal"),
-       ("Citrine", "raw_crystal", null, "unique", List.of("citrine_crystal"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "raw_citrine_crystal"),
-       ("Citrine", "raw_bud", null, "unique", List.of("citrine_bud"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "raw_citrine_bud"),
-       ("Citrine", "raw_bud1", null, "unique", List.of("citrine_bud_1"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "raw_citrine_bud1"),
-       ("Citrine", "raw_bud2", null, "unique", List.of("citrine_bud_2"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "raw_citrine_bud2"),
-       ("Citrine", "crystal", 15, "rainbow", List.of("citrine_crystal"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_citrine_crystal"),
-       ("Lanternfruit", "bud", 5, "full16", List.of("glowlantern_0"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_lanternfruit_bud"),
-       ("Lanternfruit", "bud1", 5, "full16", List.of("glowlantern_1"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_lanternfruit_bud1"),
-       ("Lanternfruit", "bud2", 5, "full16", List.of("glowlantern_2"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_lanternfruit_bud2"),
-       ("Glow Lanternfruit", "bud", 10, "full16", List.of("glowlantern_0"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glow_lanternfruit_bud"),
-       ("Glow Lanternfruit", "bud1", 10, "full16", List.of("glowlantern_1"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glow_lanternfruit_bud1"),
-       ("Glow Lanternfruit", "bud2", 10, "full16", List.of("glowlantern_2"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glow_lanternfruit_bud2"),
-       ("Glowwater", "source", 15, "full16", List.of("minecraft:water_source"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowwater_source"),
-       ("Glowwater", "flowing", 15, "full16", List.of("minecraft:water_flowing"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_glowwater_flowing"),
-       ("TinyGlowShrooms", "standard", 15, "full16", List.of("minecraft:mushroom"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_tiny_glowshroom"),
-       ("SmallGlowShroom", "standard", 12, "full16", List.of("small_mushroom"), BlockShapeTemplate.SINGLE_ENTRY, "glowing_things", "{color}_small_glowshroom")
-        ");
-        */
+        private static final NamingTemplate DEFAULT_NAMING = new NamingTemplate();
 
-}
+        // ==========================================
+        // SKIPPED — needs special handling later:
+        //   - GlowCoral / NecroCoral (nested type x shape x color loop)
+        //   - Glowwater source/flowing (fluid, not a block)
+        //   - All "rainbow" palette entries (animated texture, deferred)
+        //   - GlowshroomCap, GlowingMycelium, ColoredMoss, GlowingMoss (no texture yet)
+        //   - Light level field (deferred — add to BlockDefinition + Registration Engine later)
+        // ==========================================
+
+        public static final List<BlockDefinition> ALL = List.of(
+
+                // ==========================================
+                // DIRT / SOIL
+                // ==========================================
+
+                new BlockDefinition("glow", "dirt", BlockShapes.SINGLE_ENTRY, "dirt", "glowing_things",                        GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow", "moss", BlockShapes.SINGLE_ENTRY, "moss", "glowing_things",                        GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("colored", "moss", BlockShapes.SINGLE_ENTRY, "moss", "glowing_things",                        GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow", "mycelium", BlockShapes.SINGLE_ENTRY, "mycelium", "glowing_things",                        GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("colored", "mycelium", BlockShapes.SINGLE_ENTRY, "mycelium", "glowing_things",                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                // ==========================================
+                // GLOWOAK / RAINBOAK TREES
+                // ==========================================
+
+                new BlockDefinition("glowoak", "log",
+                        BlockShapes.MASONRY_SET, "pale_log", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowoak", "plank",
+                        BlockShapes.WOOD_PLANK_SET, "pale_planks", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowoak", "leaves",
+                        BlockShapes.SINGLE_ENTRY, "pale_leaves", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("rainboak", "log",
+                        BlockShapes.MASONRY_SET, "pale_log", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("rainboak", "plank",
+                        BlockShapes.WOOD_PLANK_SET, "pale_planks", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("rainboak", "leaves",
+                        BlockShapes.SINGLE_ENTRY, "pale_leaves", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                // ==========================================
+                // ASPHALT
+                // ==========================================
+
+                new BlockDefinition("asphalt", "standard",
+                        BlockShapes.MASONRY_SET, "asphalt", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glow_asphalt", "standard",
+                        BlockShapes.MASONRY_SET, "asphalt", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                // ==========================================
+                // CONCRETE
+                // ==========================================
+
+                new BlockDefinition("concrete", "standard",
+                        BlockShapes.ADD_ON_MASONRY_SET, "concrete", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowcrete", "standard",
+                        BlockShapes.MASONRY_SET, "concrete", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                // ==========================================
+                // COLORED STONE
+                // ==========================================
+
+                new BlockDefinition("colored_stone", "standard",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_stone", "pastel",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_stone", "bold",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_gravel", "standard",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_gravel", "pastel",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_gravel", "bold",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone", "standard",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone", "pastel",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone", "bold",
+                        BlockShapes.MASONRY_SET, "stone", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+                new BlockDefinition("glowing_gravel", "standard",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_gravel", "pastel",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_gravel", "bold",
+                        BlockShapes.SINGLE_ENTRY, "gravel", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                // ==========================================
+                // STONE BRICK
+                // ==========================================
+
+                new BlockDefinition("colored_stone_brick", "standard",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_stone_brick", "pastel",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_stone_brick", "bold",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone_brick", "standard",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone_brick", "pastel",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_stone_brick", "bold",
+                        BlockShapes.MASONRY_SET, "stone_bricks", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                // ==========================================
+                // COBBLESTONE
+                // ==========================================
+
+                new BlockDefinition("colored_cobble", "standard",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_cobble", "pastel",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("colored_cobble", "bold",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_cobble", "standard",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_cobble", "pastel",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("glowing_cobble", "bold",
+                        BlockShapes.MASONRY_SET, "cobblestone", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+
+                // ==========================================
+                // PLASTIC
+                // ==========================================
+
+                new BlockDefinition("plastic", "standard",
+                        BlockShapes.MASONRY_SET, "plastic", "glowing_things",
+                        GlowSets.ALL_18, DEFAULT_NAMING),
+
+                new BlockDefinition("plastic", "pastel",
+                        BlockShapes.MASONRY_SET, "plastic", "glowing_things",
+                        GlowSets.PASTEL, DEFAULT_NAMING),
+
+                new BlockDefinition("plastic", "bold",
+                        BlockShapes.MASONRY_SET, "plastic", "glowing_things",
+                        GlowSets.BOLD, DEFAULT_NAMING),
+                new BlockDefinition("glowplastic", "standard", BlockShapes.MASONRY_SET, "plastic", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glowplastic", "pastel", BlockShapes.MASONRY_SET, "plastic", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("glowplastic", "bold", BlockShapes.MASONRY_SET, "plastic", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                // ==========================================
+                // SAND
+                // ==========================================
+                new BlockDefinition("colored_sand", "standard", BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("colored_sand", "pastel", BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("colored_sand", "bold", BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                new BlockDefinition("glowsand", "standard", BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glowsand", "pastel",BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("glowsand", "bold", BlockShapes.SINGLE_ENTRY, "sand", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                // ==========================================
+                // SANDSTONE
+                // ==========================================
+                new BlockDefinition("colored_sandstone", "standard", BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("colored_sandstone", "pastel", BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("colored_sandstone", "bold", BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                new BlockDefinition("glowing_sandstone", "standard", BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glowing_sandstone", "pastel",BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("glowing_sandstone", "bold", BlockShapes.MASONRY_SET, "sandstone", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                // ==========================================
+                // GLASS
+                // =========================================
+                new BlockDefinition("colored_glass", "standard", BlockShapes.ADD_ON_MASONRY_SET, "glass", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "block", BlockShapes.MASONRY_SET, "glass", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "clear", BlockShapes.SINGLE_ENTRY, "glass", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "pane", BlockShapes.SINGLE_ENTRY, "glass_pane", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "clear_pane", BlockShapes.SINGLE_ENTRY, "glass_pane", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                // ==========================================
+                // ICE
+                // ==========================================
+                new BlockDefinition("glow_ice", "pastel", BlockShapes.MASONRY_SET, "ice", "glowing_things", GlowSets.PASTEL, DEFAULT_NAMING),
+                new BlockDefinition("glow_ice", "monochrome", BlockShapes.MASONRY_SET, "ice", "glowing_things", GlowSets.MONOCHROME, DEFAULT_NAMING),
+                new BlockDefinition("glow_packed_ice", "standard", BlockShapes.MASONRY_SET, "packed_ice", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow_permafrost", "bold", BlockShapes.MASONRY_SET, "blue_ice", "glowing_things", GlowSets.BOLD, DEFAULT_NAMING),
+                new BlockDefinition("glow_permafrost", "monochrome", BlockShapes.MASONRY_SET, "blue_ice", "glowing_things", GlowSets.MONOCHROME, DEFAULT_NAMING),
+                // ==========================================
+                // CLAY
+                // ==========================================
+                new BlockDefinition("clay", "colored", BlockShapes.SINGLE_ENTRY, "clay", "glowing_things",GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow_clay", "standard", BlockShapes.SINGLE_ENTRY, "clay", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                // ==========================================
+                // CITRINE
+                // ==========================================
+                new BlockDefinition("citrine", "ore", BlockShapes.SINGLE_ENTRY, "citrine_ore", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "block", BlockShapes.SINGLE_ENTRY, "citrine_block", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "bud", BlockShapes.SINGLE_ENTRY, "citrine_bud", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "bud1", BlockShapes.SINGLE_ENTRY, "citrine_bud_1", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "bud2", BlockShapes.SINGLE_ENTRY, "citrine_bud_2", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "crystal", BlockShapes.SINGLE_ENTRY, "citrine_crystal", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_crystal", BlockShapes.SINGLE_ENTRY, "citrine_crystal", "glowing_things",GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud", BlockShapes.SINGLE_ENTRY, "citrine_bud", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud1", BlockShapes.SINGLE_ENTRY, "citrine_bud_1", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud2", BlockShapes.SINGLE_ENTRY, "citrine_bud_2", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                // ==========================================
+                // LANTERNFRUIT
+                // ==========================================
+                new BlockDefinition("lanternfruit", "bud", BlockShapes.SINGLE_ENTRY, "glowlantern_0", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("lanternfruit", "bud1", BlockShapes.SINGLE_ENTRY, "glowlantern_1", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("lanternfruit", "bud2", BlockShapes.SINGLE_ENTRY, "glowlantern_2", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow_lanternfruit", "bud", BlockShapes.SINGLE_ENTRY, "glowlantern_0", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow_lanternfruit", "bud1", BlockShapes.SINGLE_ENTRY, "glowlantern_1", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("glow_lanternfruit", "bud2", BlockShapes.SINGLE_ENTRY, "glowlantern_2", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                // ==========================================
+                // CLOVER
+                // ==========================================
+                new BlockDefinition("clover", "block", BlockShapes.SINGLE_ENTRY, "clover_block", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("clover", "carpet", BlockShapes.SINGLE_ENTRY, "clover_carpet", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("clover", "growth", BlockShapes.SINGLE_ENTRY, "clover_growth", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("clover", "flowers", BlockShapes.SINGLE_ENTRY, "clover_flowers", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                // ==========================================
+                // MISC
+                // ==========================================
+                new BlockDefinition("glowmist", "standard", BlockShapes.SINGLE_ENTRY, "fog", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("tiny_glowshroom", "standard", BlockShapes.SINGLE_ENTRY, "mushroom", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
+                new BlockDefinition("small_glowshroom", "standard", BlockShapes.SINGLE_ENTRY, "small_mushroom", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING)
+        );
+
+        public static void registerAll() {
+            for (BlockDefinition def : ALL) {BlockDefinitionRegistry.register(def);
+            }
+        }
+    }

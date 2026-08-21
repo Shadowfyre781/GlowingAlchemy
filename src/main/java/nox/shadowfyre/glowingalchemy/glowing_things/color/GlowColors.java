@@ -158,4 +158,4 @@ public final class GlowColors {
                         throw new IllegalArgumentException("Unknown GlowColor: " + name);
                 return color;
         }//CUSTOM ERROR CODE IF YOU TRY TO USE A COLOR NOT SPECIFIED ABOVE AND BELOW
-}
+}//defines what crayons are in the bin

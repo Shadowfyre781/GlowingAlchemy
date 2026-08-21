@@ -6,3 +6,4 @@ public record GlowColor(
         int argb,
         MapColor mapColor
 ){};
+//defines what a crayon is

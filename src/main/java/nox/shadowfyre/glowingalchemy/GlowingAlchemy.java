@@ -9,9 +9,19 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import nox.shadowfyre.glowingalchemy.datagen.DatagenEngine;
+import nox.shadowfyre.glowingalchemy.debug.BlockListWriter;
+import nox.shadowfyre.glowingalchemy.glowing_things.registry.GT_BlockDefinitions;
+import nox.shadowfyre.glowingalchemy.registry.*;
 import org.slf4j.Logger;
+
+
+import java.nio.file.Path;
+import java.util.List;
 //import nox.shadowfyre.glowingalchemy.registry.CreativeTabRegistry;
 
 @Mod(GlowingAlchemy.MODID)
@@ -27,21 +37,33 @@ public class GlowingAlchemy {
 
     // Constructor: Merge all initialization logic here
     public GlowingAlchemy(IEventBus modEventBus, ModContainer modContainer) {
-        // Just call your registry logic
-        //ModRegistryCore.register(modEventBus);
+        // 1. Bind DeferredRegisters to the event bus FIRST
+        RegistrationEngine.register(modEventBus);
+        BlockRegistry.register(modEventBus);
 
-        // 2. Setup Events
+        // 2. Populate the definition registry
+        BlockDefinitions.registerAll();
+        GT_BlockDefinitions.registerAll();
+
+        // 3. Expand definitions into GeneratedBlocks and register them
+        List<GeneratedBlock> blocks = ExpansionEngine.generateAll();
+
+        RegistrationEngine.registerBlocks(blocks);
+        RegistrationEngine.registerBlockItems(blocks);
+        // 4. Hook up event listeners
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::onGatherData);
 
-        // MANUALLY REGISTER YOUR DATA GENERATOR HERE:
-       // modEventBus.addListener(ModDataGenerators::gatherData);
-        //CreativeTabRegistry.TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
 
-        // 3. Config
+        // 5. Config
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
+
+        // 3. Config
+
+
 
     private void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
@@ -53,11 +75,22 @@ public class GlowingAlchemy {
             // event.accept(EXAMPLE_BLOCK_ITEM);
         }
     }
+    //    private void onGatherData(net.neoforged.neoforge.data.event.GatherDataEvent event) {
+   //         BlockListWriter.write(event.getGenerator().getPackOutput().getOutputFolder());
+   //     }
+    private void onGatherData(GatherDataEvent.Client event) {
+        System.out.println("[BlockListWriter] onGatherData fired");
+        BlockListWriter.write(Path.of("reports"));
+        BlockListWriter.write(Path.of("reports"));
+        DatagenEngine.run(event);
+    }
+
 
 
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("HELLO from server starting");
+        BlockListWriter.write(Path.of("debug"));  // ADD
     }
 } // <--- THIS BRACE CLOSES THE CLASS

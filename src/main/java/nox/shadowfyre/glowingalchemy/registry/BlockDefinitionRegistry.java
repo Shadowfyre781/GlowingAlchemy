@@ -13,7 +13,9 @@ public final class BlockDefinitionRegistry {
     }
 
     public static void register(BlockDefinition definition) {
-        DEFINITIONS.add(definition);
+        if (!DEFINITIONS.contains(definition)) {
+            DEFINITIONS.add(definition);
+        }
     }
 
     public static List<BlockDefinition> definitions() {

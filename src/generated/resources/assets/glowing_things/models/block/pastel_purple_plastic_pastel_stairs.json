@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/pastel_purple_plastic_pastel_stairs"
+  }
+}

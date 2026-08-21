@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/bold_pink_glowplastic_bold_slab"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/yellow_glowing_sandstone_standard_stairs"
+  }
+}

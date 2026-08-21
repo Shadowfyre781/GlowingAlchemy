@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/neutral_gray_colored_gravel_standard"
+  }
+}

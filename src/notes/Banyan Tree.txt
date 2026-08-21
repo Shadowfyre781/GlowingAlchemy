@@ -1,0 +1,171 @@
+I have an idea for a tree for later, the Banyan Fig. starts as one trunk, with teh branches spreading out, only teh branches keep growing (or some of them), and when a branch hits 4 or so blocks from the trunk, it starts to drop a new trunk. once that trunk touches dirt, it starts spreading branches out again, so eventuallyyou end up having a tree that covers chunks, and has a rather dense understory, plus all the other trees.
+
+That is a fantastic, classic Banyan concept—and fitting it into Minecraft's block grid will make for an incredible natural super-structure! The idea of a single tree slowly walking across the landscape by dropping aerial roots that turn into new trunks captures exactly how actual Ficus benghalensis operates in real life.
+
+Here is a breakdown of how that mechanic could work conceptually, along with a few design considerations to keep performance smooth and integration natural.
+
+🌳 How the Growth Mechanics Could Work
+To make this feel organic while staying within NeoForge performance budgets, you can break its growth cycle into clear phases:
+
+[Phase 1: Main Trunk] ──> [Phase 2: Canopy Spread] ──> [Phase 3: Aerial Root Drop] ──> [Phase 4: Root Anchor] ──> [Phase 5: Sub-Trunk & Propagation]
+1. Primary Growth & Canopy Extension
+Initial Sprout: The sapling grows into a main central trunk (say, 6–10 blocks tall) and begins generating a thick top canopy.
+
+Horizontal Branching: Special Branch Logs (or directional log blocks) extend outward horizontally through random scheduled block ticks.
+
+Distance Detection: Once a branch block reaches a threshold distance (∼4–5 blocks horizontally from the nearest active trunk), it gains the ability to trigger an aerial root drop.
+
+2. Dropping Aerial Roots
+Instead of instantly spawning solid wood down to the floor, the branch slowly grows a Prop Root / Hanging Vine block downwards during block ticks.
+
+Reaching Ground: The downward root growth checks for solid soil (dirt, grass_block, coarse_dirt, etc.).
+
+Thickening Transformation: Once the tip makes contact with soil, the vertical root column transforms into full Banyan Trunk Logs, anchoring into the ground and becoming a new "Sub-Trunk."
+
+3. Expansion & Propagating
+The newly established Sub-Trunk now acts as a local anchor point, letting the canopy spread further outward and repeating the process to span multiple chunks over time.
+
+🛠️ Design Considerations & Performance Tips
+1. Controlling Unchecked Growth (Lag Prevention)
+Because a self-propagating tree can theoretically run wild across the whole world, setting boundaries will keep your tick loop happy:
+
+Maximum Radius / Generation Cap: Set a maximum generation limit (e.g., 3–4 generations of sub-trunks, or a max horizontal radius of 24–32 blocks from the original origin trunk).
+
+Soil Requirements: Require specific fertile ground or active hydration for aerial roots to successfully anchor and form full trunks.
+
+Growth Speed: Keep random tick chances low so the expansion happens gradually over many in-game days rather than exploding in minutes.
+
+2. Dense Understory Ecosystem
+Since Banyans create dark, dense shade under their vast canopies:
+
+Specialized Foliage: The thick leaf layer provides shade where shade-loving plants, moss, hanging vines, or special fungi could spawn beneath it.
+
+Dynamic Canopy Depth: Higher layers can be leafy and light-permeable, while lower canopy layers stay dense enough to block light and create that twilight understory vibe.
+
+It’s an awesome feature for long-term world evolution—watching a tree you planted slowly take over a whole valley over time is always super rewarding!
+
+Maximum Radius / Generation Cap: Set a maximum generation limit (e.g., $3\text{–}4$ generations of sub-trunks, or a max horizontal radius of $24\text{–}32$ blocks from the original origin trunk).>> bonemealing a trunk resets the timer locally. Any branches directly connected to that trunk can start growing again. this way players can cultivate a shape to the tree?forest? if they want. also, applying sulfur dust or something can trigger a branch to start dropping a trunk, to allow for denser growth, or even something like a living wall or house
+
+That gives players an amazing amount of control! Turning what could be a wild, uncontrollable growth engine into an interactive terraforming and building tool fits right into classic sandbox design.
+
+By letting players use items to direct growth, you bridge the gap between "natural worldgen element" and "architectural feature."
+
+🍃 Player-Driven Cultivation Mechanics
+1. Re-Energizing Trunks (Bone Meal Mechanics)
+Local Reset: Right-clicking an inactive or capped Banyan Trunk with Bone Meal resets its local growth cooldown or internal generation tier.
+
+Canopy Push: Connected horizontal branches gain a temporary boost to extend further out, letting players stretch a single tree across massive distances or shape custom archways and bridges.
+
+2. Targeted Root Dropping (Sulfur / Catalyst)
+Forced Propagation: Applying Sulfur Dust (or a similar modifier) directly to a horizontal branch block forces an immediate Aerial Root Drop straight down from that specific block.
+
+Living Structures: Players can align a row of branches, dust them all, and watch a solid Living Wall, fence, or natural house perimeter grow directly into the dirt.
+
+Custom Density: Solves the issue of random tick RNG—if a player wants a super-dense understory with trunks spaced every 2 blocks instead of 4, they just apply the dust where they want the columns.
+
+🏛️ Architectural & Strategic Possibilities
+Player Goal	Player Action	Resulting Form
+Living Palisade / Wall	Plant a line of branches, apply Sulfur along the line	A solid vertical wooden barricade drops down to the ground.
+Natural Canopy Bridge	Bone Meal the outer trunk repeatedly in one direction	Branches push across a ravine or river, eventually dropping anchor trunks on the other side.
+Banyan Treehouse Base	Prune unwanted side trunks; Sulfur-drop precise corner pillars	A custom-supported hollow canopy room with natural structural pillars.
+⚙️ Implementation Quick-Pointers
+Branch State Properties: You could give branch blocks a simple blockstate property like can_drop_root (boolean) or growth_energy (int).
+
+Normal ticks check if growth_energy > 0.
+
+Bone Meal recharges growth_energy on trunks and connected branches.
+
+Sulfur instantly sets can_drop_root = true regardless of distance or natural tick timers.
+
+Pruning / Shearing: Allowing players to shear off young hanging root vines before they touch the ground gives full aesthetic control over where trunks don't form.
+
+I also have ideas for Aspen trees to do the opposite... an aspen tree will have a trunk extending into the ground a couple blocks, and having something like rooted earth or the azalea roots spreading horizontally 1 block under the surface, and occasionally having a new shoot come up
+
+That is an absolute slam dunk of a concept—and a brilliant contrast to the Banyan!
+
+In real life, a grove of Quaking Aspens (like the famous Pando clone in Utah) isn't actually a group of individual trees—it's a single massive underground organism connected by a shared root network (rhizome system). Bringing that inverted "underground spread, upward shoots" mechanic into Minecraft is both botanically accurate and mechanically rich.
+
+Here is how the Aspen's underground network could function in-game, along with some great gameplay dynamics it opens up!
+
+🍂 Underground Root System & Shoot Mechanics
+[Main Aspen Trunk]
+       │
+       ▼ (1-2 blocks down)
+[Taproot / Central Core] ─── Horizontal Roots (1 block below surface) ───► [New Aspen Shoot]
+1. The Underground Network
+Taproot Base: Beneath the main trunk, a specialized block (like Aspen Taproot or Rooted Earth) acts as the network hub.
+
+Subsurface Spread: During random ticks, root blocks check for adjacent dirt, coarse dirt, or podzol 1 block under the surface. They spread horizontally up to a set radius, converting normal dirt blocks into Rooted Dirt / Aspen Roots.
+
+2. Sprouting New Shoots
+Shoots Above Ground: Once a root block is established under a clear surface block (air, grass, or light vegetation), it has a random chance to sprout an Aspen Sapling / Shoot straight up.
+
+Rapid Growth: Because these shoots draw energy from the mature parent root system, they could grow into full adult Aspen trees significantly faster than a standard planted sapling!
+
+🎮 Player Interaction & Cultivation
+Just like with your Banyan idea, giving players tools to direct or manipulate the root network creates awesome gameplay opportunities:
+
+1. Root Pruning & Border Control
+Physical Barriers: Placing stone, bricks, or cobblestone down to 2 blocks deep stops the roots from expanding past a boundary—allowing players to keep an Aspen grove confined to a specific yard or garden bed.
+
+Coarse Dirt / Shovel Tilling: Tilling a root block with a hoe or replacing the soil breaks the network connection, isolating a section of the grove.
+
+2. Bone Meal & Fertilizer Synergies
+Root Force: Applying Bone Meal to any individual tree in the network can send growth energy through the underground root blocks, causing multiple new shoots to pop up across the entire grove at once!
+
+Shared Health / Defense: Since the grove shares a single root system, fertilizing or caring for one tree nourishes the whole clone colony.
+
+⚖️ Banyan vs. Aspen: A Perfect Structural Contrast
+Putting these two trees side by side creates a really satisfying symmetry in your mod's flora:
+
+Feature	Banyan Fig	Quaking Aspen
+Growth Direction	Above ground (Canopy outward → Roots down)	Below ground (Roots outward → Shoots up)
+Visual Vibe	Dense, tangled, massive tropical jungle super-tree	Clean, open, shimmering temperate woodland/grove
+Spread Catalyst	Sulfur/Catalyst forces aerial roots on branches	Bone Meal on roots/trees forces subterranean shoots
+Control Method	Shearing hanging vines before they anchor	Digging trenches / placing stone barriers underground
+Ecosystem Density	Dark, heavy understory shade	Bright, dappled sunlight with gold/white leaf canopies
+They're two sides of the same coin: one conquers the air to drop trunks down, while the other conquers the soil to push trunks up!
+
+and also, moss blocks can send roots down through dirt and other softer blocks, and if they reach an air pocket, tur into a cave vine. meanwhile an azalea bush, small mushroom, or evergreen will spawn, and can grow into a larger tree-ish feature if bonemealed enough
+
+That creates a incredible vertical ecological bridge—connecting the surface world straight down into the subterranean cave ecosystem!
+
+By using moss as a dynamic moisture/growth conductor, you turn what is usually static surface vegetation into an active cave-populating mechanic.
+
+🌿 Vertical Root Mechanics: Surface to Cave
+[ Surface Moss Block ]
+         │
+         ▼ (Roots extend down through soft blocks)
+[ Dirt / Mud / Coarse Dirt / Clay ]
+         │
+         ▼ (Reaches cavern ceiling)
+[ Cave Vine (Glow Berries) ]
+         │
+         └─► [ Spawns Azalea Bush, Small Mushroom, or Sapling Below ]
+1. Moss Block Subsurface Probing
+Scheduled Ticks: Surface Moss Blocks occasionally check the blocks directly beneath them (1–8 blocks deep).
+
+Permeable Media: Roots push through soft materials like dirt, coarse_dirt, rooted_dirt, mud, or clay (stopping at solid stone, deepslate, or obsidian).
+
+Reaching Air: Once the downward search hits an open air block with a surface below, it transforms the ceiling block into a hanging Cave Vine (with a chance for glow berries).
+
+2. Understory & Cave Spawning
+When the hanging vine establishes itself over a solid cave floor:
+
+Initial Sprout: It spawns a small surface feature underneath on the cave floor—either an Azalea Bush, a Small Mushroom (red/brown), or a shade-tolerant Evergreen Sapling.
+
+Overgrowth / Bone Meal Cultivation: Left alone, it remains a charming miniature cave plant. But if a player (or automated mechanic) repeatedly Bone Meals the sprout, it forces it to mature into a full underground tree or giant mushroom feature, creating lush underground oases!
+
+🍃 Comparing Your Dynamic Plant Systems
+You now have a brilliant trio of biome-expanding plant behaviors:
+
+Tree / Plant Type	Growth Direction	Primary Mechanic	Terrain Impact
+Banyan Fig	Above Ground	Canopy extends horizontally → Drops aerial roots down → New trunks form	Dense jungle understory & living walls
+Quaking Aspen	Subsurface	Taproot pushes roots 1 block under soil → Underground network spreads → Shoots sprout up	Open shimmering groves & shared root networks
+Moss & Cave Vines	Vertical / Subterranean	Surface moss sends roots straight down through soil → Breaks into caves → Spawns understory flora	Lush cave ecosystems & natural ceiling-to-floor bridges
+💡 Gameplay & Building Possibilities
+Subterranean Farming: Players can intentionally place Moss on top of thin dirt ceilings above their cave bases to seed natural hanging gardens and light sources (glow berries).
+
+Natural Cave Discovery: Finding random Cave Vines and Azaleas underground becomes a hint to players that a rich surface biome or moss layer sits directly above them!
+
+Secret Underground Treehouses: By Bone Mealing the underground Azaleas or Evergreens, players can cultivate full-sized trees inside large cavern pockets without ever having to transport saplings down manually.

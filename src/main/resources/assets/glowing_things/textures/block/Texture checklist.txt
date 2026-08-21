@@ -1,0 +1,166 @@
+glowingalchemy namespace
+
+Stone/Masonry
+
+ x	limestone_texture.png
+x	 limestone_mossy_texture.png//limestone_texture + mossy_overlay
+x	 marble_texture.png + marble_texture(tinted)
+?	 marble_mossy_texture.png//marble_texture.png + marble_texture(tinted)+mossy_overlay
+
+Trees — Logs
+
+ maple_log_texture.png
+ chestnut_log_texture.png
+ evergreen_log_texture.png
+ palm_log_texture.png
+ willow_log_texture.png
+ redwood_log_texture.png +redstone_log_top_texture
+ aspen_log_texture.png
+
+Trees — Planks
+
+ maple_plank_texture.png
+ chestnut_plank_texture.png
+ evergreen_plank_texture.png
+ palm_plank_texture.png
+ willow_plank_texture.png
+ redwood_plank_texture.png
+ aspen_plank_texture.png
+
+Trees — Leaves (colored — greyscale base)
+
+ maple_leaves_texture.png
+ chestnut_leaves_texture.png (uncolored — unique texture)
+ evergreen_leaves_texture.png (uncolored)
+ palm_leaves_texture.png (uncolored)
+ willow_leaves_texture.png (uncolored)
+ redwood_leaves_texture.png (uncolored)
+ aspen_leaves_texture.png (uncolored)
+
+Trees — Other
+
+ willow_canes_texture.png
+ aspen_roots_texture.png
+
+Groundcover / Particles (all uncolored — unique textures)
+
+ dust_texture.png
+ ash_texture.png
+ netherdust_texture.png
+ ashdust_texture.png
+ biofilm_texture.png
+
+Clover (all uncolored — unique textures)
+
+x	 colored_clover_carpet_texture.png
+x	 colored_clover_spread_texture.png
+x	 colored_clover_growth_texture.png
+x	 colored_clover_flowers_texture.png
+
+glowing_things namespace
+
+Dirt
+
+ x	glow_dirt_texture.png (uncolored)
+
+Trees
+
+ ?	glowoak_log_texture.png (greyscale — ALL_18)//rainboak_log_texture.png
+ ?	glowoak_log_top_texture.png (greyscale — ALL_18)//rainboak_log_top_texture.png
+ ?	glowoak_plank_texture.png (greyscale — ALL_18)//rainboak_plank_texture.png
+ ?	glowoak_leaves_texture.png (greyscale — ALL_18)//rainboak_leaves_texture
+ X	rainboak_log_texture.png (greyscale — ALL_18)
+x	rainboak_log_top_texture.png
+ X	rainboak_plank_texture.png (greyscale — ALL_18)
+ X	rainboak_leaves_texture.png (greyscale — ALL_18)
+
+Asphalt
+
+ asphalt_texture.png (greyscale — ALL_18)
+ glow_asphalt_texture.png (greyscale — ALL_18)
+
+Concrete
+
+ X	concrete_texture.png (greyscale — ALL_18)
+ ?	glowcrete_texture.png (greyscale — ALL_18)//concrete_texture.png
+
+Stone variants (greyscale — ALL_18, PASTEL, BOLD share one base each)
+
+ colored_stone_texture.png//vanilla stone.png
+ glowing_stone_texture.png//vanilla stone.png
+ colored_stone_brick_texture.png//vanilla stone_bricks.png
+ glowing_stone_brick_texture.png//vanilla stone_bricks.png
+ colored_cobble_texture.png
+ glowing_cobble_texture.png
+//vanilla cracked_stone_bricks.png
+Plastic
+
+ plastic_texture.png (greyscale — ALL_18/PASTEL/BOLD share one base)
+ glowplastic_texture.png (greyscale)
+
+Sand
+
+ x	colored_sand_texture.png (greyscale)
+?	 glowsand_texture.png (greyscale)//sand_texture
+
+Sandstone
+
+ x	colored_sandstone_texture.png (greyscale)//colored_sandstone_[bottom, top, side]_texture
+?	glowing_sandstone_texture.png (greyscale)//colored_sandstone_[bottom, top, side]_texture
+
+Glass
+
+ colored_glass_texture.png (greyscale)
+ illumiglass_texture.png (greyscale)
+ illumiglass_clear_texture.png (uncolored)
+ illumiglass_pane_texture.png (greyscale)
+ illumiglass_clear_pane_texture.png (uncolored)
+//All should use vanilla glass.png, glass_top.png or {color}_stained_glass[_top].png //if using a tint layer, Alpha should be low enough for block to be translucent
+Ice
+
+ x	glow_ice_texture.png (greyscale — PASTEL/MONOCHROME share one base)
+ x	glow_packed_ice_texture.png (greyscale — ALL_18)
+ x	glow_permafrost_texture.png (greyscale — BOLD/MONOCHROME share one base)
+
+Clay
+
+ clay_texture.png (greyscale — ALL_18)
+ glow_clay_texture.png (greyscale — ALL_18)
+
+Citrine
+
+ x	citrine_ore_texture.png (uncolored)
+ x	citrine_texture.png (greyscale — ALL_18)
+ x	citrine_bud_texture.png (greyscale)
+ x	citrine_bud1_texture.png (greyscale)
+ x	citrine_bud2_texture.png (greyscale)
+ x	citrine_crystal_texture.png (greyscale)
+ ?	citrine_raw_crystal_texture.png (uncolored)//citrine_crystal_texture.png (greyscale)
+ ?	citrine_raw_bud_texture.png (uncolored)//citrine_bud_texture.png (greyscale)
+ ?	citrine_raw_bud1_texture.png (uncolored)//citrine_bud1_texture.png (greyscale)
+ ?	citrine_raw_bud2_texture.png (uncolored)//citrine_bud2_texture.png (greyscale)
+
+Lanternfruit
+
+ x	lanternfruit_bud_texture.png (greyscale)
+ x	lanternfruit_bud1_texture.png (greyscale)
+ x	lanternfruit_bud2_texture.png (greyscale)
+ ?	glow_lanternfruit_bud_texture.png (greyscale)//lanternfruit_bud_texture
+ ?	glow_lanternfruit_bud1_texture.png (greyscale)//lanternfruit_bud1_texture
+ ?	glow_lanternfruit_bud2_texture.png (greyscale)//lanternfruit_bud2_texture
+
+Clover (greyscale — ALL_18)
+
+ clover_texture.png
+ clover_carpet_texture.png
+ clover_growth_texture.png
+ clover_flowers_texture.png
+
+Spreading cover
+?	GlowGrass//vanilla grass_block_top, grass_block_side_overlay
+?	GlowGrass//vanilla Short_grass, tall_grass_top, tall_grass_bottom
+Misc
+
+ glowmist_texture.png (uncolored)
+ tiny_glowshroom_texture.png (greyscale — ALL_18)
+ small_glowshroom_texture.png (greyscale — ALL_18)

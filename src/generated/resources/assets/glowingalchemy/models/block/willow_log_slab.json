@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowingalchemy:block/willow_log_slab"
+  }
+}

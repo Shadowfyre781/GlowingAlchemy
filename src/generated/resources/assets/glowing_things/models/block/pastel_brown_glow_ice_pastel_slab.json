@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/pastel_brown_glow_ice_pastel_slab"
+  }
+}

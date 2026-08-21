@@ -1,0 +1,58 @@
+Termites are passive bug mobs that spawn on Termite Nests. Termites regularly work to destroy wood blocks and turn them into  more termite nests. Termites are the smallest mob in Minecraft.
+
+
+
+
+Contents
+1	Appearance
+2	Spawning
+3	Behavior
+4	Data
+5	Trivia
+6	History
+
+Appearance
+Termites are a simple 1x1 pixel, which means that, without taking entity cramming and mob cap into account, 256 termites could fit in a single block without any z-fighting.
+
+Spawning
+Termites spawn in Termite Nests, which spawn in mounds. Unless there are already 20 or more Termites that live in a nest, it has a 0.4% chance of spawning on a Termite Nests every tick.
+
+They can also spawn in Massive Termite Mounds, which is an occurrence that appears in the savannah
+
+Behavior
+Termites' main purpose is to seek out and destroy Wood or log blocks Termites in a Termite Nest will seek out Wood Blocks in a 30x30 radius. from the Queen. If they find one, they will stand on it and start the process of decaying the wood. If 5 or more termites are on the wood block, they will successfully convert it to nest block on an RGT with a 5% per termite chance of success. 
+
+If no Wood, Log, or Knob Blocks are nearby, they will seek out Wooden Planks and other wooden products as well and convert them to rooted dirt. They can convert rooted dirt into more termite nests, spreading their empire around. It is very possible for a single termite colony to destroy an entire woodland mansion. However, they cannot destroy waxed wood. They also cannot destroy stem blocks and stem wood types (Crimson, Warped, Glowing) 
+
+Termites are considerably slower than most other mobs due to their size, which is a simple 1x1 pixel.
+
+Termites are one of three mobs (the other two being the songbird and the Squirrel) that can enter and stay inside leaf blocks at will, which means the player will have to break the leaf block to get rid of the termite.
+
+Termite Soldier
+soldiers spend their time defending the nests. they will stay inside nest blocks, but if there is a disruption to a block within 3 blocks of the soldier, it will attack. they cannot help infest blocks. 
+
+appearance: Soldiers appear as a much larger insect, with a pale cream colored body and a dark brown head with large pincers. they are appx 1 block long, and half a block around. 
+
+they have a bite attack, and can shoot formic acid which does lingering damage without either submerging in water or drinking milk. the acid will damage the durability of most armors. 
+
+Queens
+termite queens are the heart of the colony. she is the centerpoint of any colony expansion. queens stay hidden in nest blocks and can slowly (~1 block/day)move, but only inside nest blocks. 
+
+queens maintain sufficient distance from each other that adjacent colonies ranges might overlap by at most 4 blocks. 
+If the block a queen is in is disturbed, it will cause every soldier in the colony to swarm. if the queen is killed, no new workers or soldiers will spawn. soldiers will go dormant, only attacking if the block they are in is disturbed. if the colony isn't eradicated, within a week, one of the nest blocks will generate a new queen. 
+
+Termites can climb walls, albeit very slowly.
+
+Termites cannot be killed by the player due to their size.
+Data
+Termites have no health, because they cannot be killed by the player, and are just eaten by other mobs
+
+They are a passive mob.
+
+Trivia
+Although Termites are classified as an Arthropod in Minecraft's code, they do not take extra damage from the Bane of Arthropods enchantment due to the fact that the player cannot attack it.
+
+ Also, Armadillos, hedgehogs, songbirds, and chickens/ turkeys can now destroy Termite Nests and eat Termites. Baobab Wood now takes a normal amount of time to be eaten by Termites.
+24w34f: Massive Termite Mounds have now been logged as an Occurrence.
+ but not Silverfish.
+24w34j: Termites can now walk inside of Leaf Blocks.

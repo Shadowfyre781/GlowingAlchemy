@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowing_things:block/neutral_gray_glowplastic_standard_wall"
+  }
+}

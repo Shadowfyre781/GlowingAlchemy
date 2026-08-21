@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "glowingalchemy:block/pastel_purple_maple_leaves"
+  }
+}

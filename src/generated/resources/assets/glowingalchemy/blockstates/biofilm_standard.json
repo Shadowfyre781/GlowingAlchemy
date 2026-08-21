@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "glowingalchemy:block/biofilm_standard"
+    }
+  }
+}

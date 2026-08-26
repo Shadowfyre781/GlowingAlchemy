@@ -1,0 +1,102 @@
+﻿Feature Design Specification: Dynamic Earthen Physics & Colony Ecology
+System Overview & Core Directives
+This specification details two interconnected gameplay systems: Gravity-Based Loose Dirt & Layer Spreading Physics and The Clonal Aspen / Termite Ecological Engine.
+
+
+
+
+
+
+                                  [ DIRT PHYSICS ENGINE ]
+                                            │
+              ┌─────────────────────────────┴─────────────────────────────┐
+              ▼                                                           ▼
+    [ Bound Soil Anchors ]                                      [ Loose Dirt & Gravity ]
+(Grass, Mycelium, Rooted Dirt)                                  (Spreads into 3x3 layers)
+              │                                                           │
+              ├──────────────────────────┐                                │
+              ▼                          ▼                                ▼
+    [ Pando Aspen Network ]     [ Fungal Defenses ]            [ Termite Infestations ]
+  (8–10 blk underground web)  (Mycelium repels pests)         (Queens, Soldiers, Nest Blocks)
+                                                                          │
+                                                                          ▼
+                                                               [ Natural Predators ]
+                                                            (Bears, Skunks, Hedgehogs)
+
+Module 1: Loose Dirt & Layer Physics Engine
+Mechanics Logic
+* Layer Mechanics: Loose dirt/sand/dust blocks fall when unsupported, settling into 3x3 layer-spreading configurations (1 layer thick per spread step).
+* Stacking Threshold: When 8 layers stack on top of each other after settling, they condense back into a single full solid block.
+* Structural Anchors (Bound Soil): Grass_Block, Podzol, Mycelium, Nylium (Crimson/Warped), and Rooted_Dirt act as structural sod anchors. They resist gravity and hold up unsupported raw dirt directly attached to them.
+* Raw Dirt Gravity: Standard Dirt, Coarse_Dirt, Mud, and Powdered_Snow collapse into layers if unsupported by an adjacent structural anchor.
+Lag Mitigation & World Generation
+* Suspended Natural State: During world gen, terrain dirt initializes with a blockstate property: stable: true. Suspended dirt ignores gravity tick updates until disturbed.
+* Trigger Conditions: Any player interaction, explosion, liquid flow, or adjacent block state change flips stable: true to stable: false, initiating a cascading neighbor update and potential landslide.
+* Player Placement: Dirt placed manually by a player defaults to stable: false instantly.
+Module 2: Aspen Tree (Pando) Network Engine
+Root Traversal Algorithm
+1. Initial Anchor: Standard trees place a $3\times5$ radial disk of Rooted_Dirt beneath the trunk at trunk base height (Y - 1).
+2. Pando Underground Creep: Aspen trunks check for expansion via Random Game Tick (RGT) with a 10% success rate:
+   * Distance Limit: $10\text{ blocks}$ maximum radial distance from the origin trunk.
+   * Target Block: Standard Dirt $1\text{–}2\text{ blocks}$ beneath the surface. Converts target to Rooted_Dirt.
+   * Territorial Exclusion: Aspen roots cannot creep into soil already occupied by root blocks of other tree species.
+3. Sucker Sprout Checks: Once Rooted_Dirt reaches $\ge 2\text{ blocks}$ away from the origin trunk (up to $8\text{ blocks}$ max for sprouting):
+   * Target Surface State: Y + 1 must be a grass-type block (Grass, Podzol, Mycelium), and Y + 2 must be Air.
+   * Action: Spawns an Aspen Sapling/Sucker on Y + 2.
+4. Decay & Forestry:
+   * When an Aspen trunk is chopped, connected Rooted_Dirt enters a decay state, slowly reverting to standard Dirt and triggering gravity updates for supported structures above.
+   * Planting a matching Aspen Sapling on decaying Rooted_Dirt instantly consumes the root energy to grow the tree.
+Module 3: Termite Colony & Hive-Mind Ecosystem
+Hive Capacity & Population Limits
+* Units are tracked via a Capacity Unit (CU) system per nest block.
+Unit Type
+	CU Footprint
+	Behavioral Notes
+	Standard Nest Block
+	$256\text{ CU Total}$
+	Houses up to 256 Workers, 16 Soldiers, or mixed ratio.
+	Queen's Chamber
+	$1024\text{ CU Total}$
+	Core hive hub; houses the Queen ($256\text{ CU}$) and royal guard.
+	Worker (Particle)
+	$1\text{ CU}$
+	Single-pixel visual speck; pathfinds to Logs, Wood, Rooted Dirt.
+	Soldier (Mob)
+	$16\text{ CU}$
+	Aggressive defensive unit; climbing mechanics; stacks Formic Acid debuff.
+	Queen (State/Entity)
+	$256\text{ CU}$
+	Lays 1 egg every 3–4 seconds if network capacity permits.
+	Hive Alarm & Response Mechanics
+* Trigger Conditions: Breaking, hitting, updating, or applying fluid/vibration checks to the Queen’s block triggers a colony-wide alarm.
+* Response:
+   * All Soldiers within $32\text{ blocks}$ exit Nest Blocks instantly and pathfind directly to the alarm block coordinates.
+   * Orphaned State: Killing the Queen halts egg production; surviving Workers retreat permanently into Nest Blocks.
+   * New Queen Spawn: If an orphaned nest network remains untreated for $7\text{–}14\text{ in-game days}$, a new Queen evolves in a Nest Block situated $>48\text{ blocks}$ from any active Queen.
+* Adaptive Threat Ratio:
+   * Peace State: $95\%\text{ Workers} / 5\%\text{ Soldiers}$.
+   * High Threat State (Attacked/Collapsing): Dynamically shifts production up to $30\%\text{ Workers} / 70\%\text{ Soldiers}$.
+Module 4: Soil Alchemy & Ecological Predators
+Chemical & Pungent Interactions
+* Miracle Grow: Crafted in a cauldron using Bone Meal + Sulfur Powder + Charcoal Powder + Water. Applying it to roots forces instant sucker sprouting.
+* Coconut Oil Proofing: Works like waxing copper. Applied to logs, wood, or dirt to make them permanently immune to termite consumption/traversal.
+* Fungal Barriers: Mycelium and Nylium act as natural repellents; termites cannot pathfind through or convert fungal soil.
+Predator Matrix
+
+
+
+
+
+
+  [ Hedgehogs ]  ──>  Eats Worker Specks on surfaces (10-block patrol area)
+ [ Armadillos ] ──>  Digs into shallow Nest Blocks; immune to Formic Acid
+ [ Skunks ]     ──>  Fires spray cone (5 blocks); neutralizes Pheromone Target Lock
+ [ Bears ]      ──>  Autumn Hyperphagia Mode; pathfinds 48 blocks to destroy Nest Cores
+
+Developer Action Items Checklist
+* [ ] Implement stable: true/false blockstate property on dirt variants for world-gen lag mitigation.
+* [ ] Implement 3x3 layer-spreading falling math for loose soil and 8-layer block condensation logic.
+* [ ] Code Aspen Rooted_Dirt radial check and 10% RGT sucker propagation logic.
+* [ ] Build Termite Nest Capacity Unit (CU) manager and 32-block Manhattan distance network tethering.
+* [ ] Wire Queen block update listeners to trigger full colony Soldier swarm routing.
+* [ ] Add Coconut Oil proofing blockstate flag to wood/dirt variants.

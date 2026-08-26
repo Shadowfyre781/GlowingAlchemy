@@ -1,0 +1,57 @@
+1. Primary Ores & Refined Metals
+Ore Source	Refined Metal	Primary Mod Uses	Golem Type & Role
+Plumbum	Lead	Radiation shielding, heavy goggles, gravity-affected armor/blocks.	Lead Golem (Copper): Quarry & non-ore clearing.
+Wolfram	Tungsten	Ultra-dense tools/armor (slows player, reduces jump height), heavy machinery.	Tungsten Golem (Copper): Ore miner.
+Stannum	Tin	Bronze alloying, basic machinery. Dissolves in Mercury.	Tin Golem (Copper): Fluid & liquid transport.
+Cupernikel	Nickel	Structural scaffolding, steel production. Mercury-resistant.	Nickel Golem (Iron): Hazard-immune sentry.
+Argentum	Silver	Holy gear, high enchantability (2x Gold durability), magic items.	Silver Golem (Iron): Undead purge sentry.
+Cinnabar	Mercury	High-viscosity liquid metal (2-block Nausea aura). Dissolves Al, Sn, Zn. Alloy catalyst.	Quicksilver Golem (Iron): Puddle-tentacle sentry.
+Bismuth	Bismuth	Anti-nausea potions, fishing lures, infuses ores to grow crystal buds.	Bismuth Golem (Copper): Crystal cluster harvester.
+Bauxite / Native	Aluminium	Scaffolding, infrastructure. Dissolves in Mercury.	Aluminium Golem (Copper): Automated crafter.
+Sphalerite / Native	Zinc	Galvanized alloys, logistics machinery. Dissolves in Mercury.	Zinc Golem (Copper): Item sorter & hopper mover.
+Neodymium Ore	Neodymium	Magnets, maglev tracks.	Neodymium Mech (Copper): Allay flying suit & magnetic vacuum.
+Uraninite	Uranium	Nuclear energy, radioactive components.	Uranium Golem (Copper): Fallout worker & rad-aura sentry.
+Orichalcum Ore	Orichalcum	Endgame magical metal. Refined with Quicksilver + Silvered Quartz for Netherite durability + 4x Gold enchantability.	Orichalcum Golem (Iron): Runic ward guardian.
+2. Alloys & Special Blends
+Bronze: Copper + Tin (Durable early-game utility & Clockwork Harvester Golem).
+
+White Brass: Nickel + Tin + Zinc (Corrosion-resistant machinery & Redstone Buffer Golem).
+
+Electrum: Gold + Silver (High-tier redstone conductors & Lightning Shock-Sentry Golem).
+
+Quicksilver: Mercury + Silver (Fluid magical alloy used for Orichalcum refining and Liquid Sentry Golems).
+
+Quicksteel: Iron + Mercury + Silver + Quartz (High-speed razor-sharp alloy for Quicksteel Dash Golems).
+
+Steel: Iron + Carbon/Coal + Nickel (Upgraded Iron family tank, enchantable via Carved Pumpkins).
+
+Summary Table: Full Golem Lineup
+┌─────────────────────────────────────────────────────────┐
+│                      COPPER LINE                        │
+│                (Utility & Automation)                   │
+├─────────────────────────────────────────────────────────┤
+│ • Aluminium  ── Automated Crafter                       │
+│ • Tungsten   ── Heavy Ore Miner                         │
+│ • Lead       ── Quarry / Filler Miner                   │
+│ • Neodymium  ── Allay Mech Suit (Magnetic Pickup)       │
+│ • Tin        ── Liquid / Fluid Canister                 │
+│ • Zinc       ── Item Sorter / Hopper Mover              │
+│ • Bismuth    ── Crystal Nursery Harvester               │
+│ • Bronze     ── Clockwork Crop & Wood Harvester         │
+│ • White Brass── Redstone Buffer / Signal Repeater       │
+│ • Uranium    ── Fallout Worker & Radiation Aura Sentry │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                       IRON LINE                         │
+│               (Combat, Defense & Area)                  │
+├─────────────────────────────────────────────────────────┤
+│ • Steel      ── Enchantable Heavy Tank                  │
+│ • Quicksilver── Puddle Ambush / Whip Sentry             │
+│ • Nickel     ── Mercury & Environmental Shield          │
+│ • Silver     ── Holy Undead Purge Guardian              │
+│ • Electrum   ── Chain-Lightning Shock Sentry            │
+│ • Quicksteel ── High-Speed Fluid-Blade Striker          │
+│ • Orichalcum ── Quad-Enchanted Runic Ward Guardian      │
+└─────────────────────────────────────────────────────────┘
+Would you like to focus next on specific crafting recipes for these golem frames, refine how mercury dissolves metals, or work out redstone control systems for your logistics networks?

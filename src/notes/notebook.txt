@@ -1,0 +1,555 @@
+
+Conversation with Gemini
+How hard would it be to have a craftable notebook? I'm using patchouli for the game guides, and it occurred to me that a personal notebook that's bound to the player even after death might be a nifty quality of life thing
+
+Implementing a personal, death-persistent notebook in Java using Patchouli alongside a custom mod is relatively straightforward. Patchouli already handles book rendering, formatting, and page structures out of the box, while standard Minecraft modding APIs handle player-bound inventory persistence.
+
+1. Patchouli Book Setup
+Define your custom Patchouli book JSON in your mod’s resources (assets/modid/patchouli_books/notebook/book.json).
+
+Set "use_resource_pack": true and "custom_book_item": "modid:notebook".
+
+Specify "i18n": true for localizable titles.
+
+Configure "show_to_unlocked_book": true so entries unlock dynamically as players discover features or write entries.
+
+2. Death-Persistence Mechanics
+To ensure the notebook stays with the player upon death without dropping, use event listeners available in standard modding frameworks:
+
+Forge / NeoForge: Listen to PlayerEvent.Clone. Check if event.isWasDeath() is true, retrieve the saved notebook NBT/itemstack from the original player instance, and copy it directly to the newly spawned player's inventory. Alternatively, register the item under the TAG_KEEP_ON_DEATH tag.
+
+Fabric: Use the ServerPlayerEvents.COPY_FROM event. Read the item stack from the dying player entity and re-insert it into the target player's inventory during respawn.
+
+3. Player-Bound NBT Data
+To keep the notebook tied exclusively to its owner:
+
+Attach the player’s UUID to the item stack’s custom NBT (notebook_owner_uuid).
+
+In the use / onItemRightClick method of your custom item class, compare player.getUUID() against the stack's saved UUID.
+
+If unowned, set the UUID to the current player on first right-click. If owned by another UUID, cancel the interaction or display a message (e.g., "This notebook belongs to someone else").
+
+          Development Complexity: Low to Moderate
+┌─────────────────────────┬───────────────────────────────────┐
+│ Feature Component       │ Implementation Method             │
+├─────────────────────────┼───────────────────────────────────┤
+│ Book Rendering & UI     │ Patchouli Custom Book JSON        │
+│ Keep on Death           │ Player Clone / CopyFrom Event     │
+│ Player Binding          │ Custom Item NBT (UUID check)      │
+│ Dynamic Content/Notes   │ Patchouli Data Flags or Custom NBT│
+└─────────────────────────┴───────────────────────────────────┘
+Slight tweak, if it's even easier: what if the notebook wasn't persistent, but upon crafting a new one, it automatically fills with all the stored data
+
+That approach simplifies the item logic significantly. Moving the data out of the physical item stack and onto the Player Entity / World Saved Data means the item itself becomes a simple, disposable key that reads global data.
+
+1. Centralized Data Storage
+Instead of saving entries directly inside individual item stacks, store the unlocked entries or written notes on the player using Custom Player NBT or Capability / Attachment Systems:
+
+Capabilities / Attachments: Attach a custom data container (e.g., NotebookData) directly to the player entity.
+
+Persistent Storage: When a player unlocks an entry, earns an achievement, or saves a note, write it directly to the player's data attachment rather than the item in hand.
+
+2. Patchouli Book Integration
+Patchouli supports condition flags and custom entry logic out of the box.
+
+Define your book entries in assets/modid/patchouli_books/notebook/en_us/entries/.
+
+Use Patchouli's built-in Advancement Flags or Custom Flag Conditions inside entry JSONs (e.g., "advancement": "modid:discovered_alchemy" or "flag": "modid:has_unlocked_entry").
+
+When a new notebook is crafted or opened, Patchouli automatically reads the current player state and displays every entry the player has globally unlocked.
+
+3. Item Class Logic
+Because the data isn't tied to the physical item, your notebook item class remains lightweight:
+
+Crafting: standard recipe; no special NBT transfer needed during crafting.
+
+Loss on Death: The item drops or despawns normally.
+
+Right-Click: Calling PatchouliAPI.get().openBookGUI((ServerPlayer) player, bookId) opens the master view, pulling current player progress seamlessly.
+
+       Player Data Sync vs. Item-Bound Storage
+┌──────────────────────────┬──────────────────────────────────┐
+│ Item-Bound Approach      │ Player Data Approach             │
+├──────────────────────────┼──────────────────────────────────┤
+│ Stored in Item NBT       │ Stored in Player NBT / Capability│
+│ Requires Keep-on-Death   │ Disposable Item (Craft Anytime)  │
+│ Lost if Item Despawns    │ Progress Preserved Permanently   │
+│ Requires UUID Binding    │ Auto-Syncs to Creator's State    │
+└──────────────────────────┴──────────────────────────────────┘
+Before throwing Java, I have a couple other items ideas... Would a page limit and multiple volumes make sense?
+
+I'm also having a very robust /config folder, to allow players and modders easier access to tweaking settings and adding custom content. Would having the book's data store in /config/notebook/or something like that be easy, so the player can access the notes offline, or add images to pages
+
+Page limits with volumes work well design-wise, but storing personal player progress in the global /config directory introduces major synchronization issues for multiplayer servers.
+
+Page Limits and Multi-Volume Notebooks
+
+Having multi-volume books (e.g., Notebook: Volume I, Volume II) makes complete sense mechanics-wise and offers several benefits:
+
+Pacing & Progression: It gives players a tangible sense of growth. Vol. I can cover early-game discovery, while Vol. II requires higher-tier crafting materials or specific progression triggers.
+
+Organization: Rather than scrolling through a massive 200-page single book, volumes allow logical categorizations (e.g., Vol I: Botanicals & Soils, Vol II: Metallurgy & Transmutations).
+
+Patchouli Support: Patchouli naturally supports multiple distinct book definitions (assets/modid/patchouli_books/notebook_vol_1, notebook_vol_2). You simply assign a separate item to each book ID.
+
+Storage in /config vs. Server/World Storage
+
+Using the /config folder for personal player notes seems convenient for offline reading, but it breaks down in multi-player environments:
+
+Storage Location	Offline Image/Text Editing	Multiplayer / Server Safe	Player-Specific Isolation
+/config/	✅ Very Easy	❌ Breaks on servers	❌ Shared across all players
+World Save (/saves/world/data)	⚠️ Requires world access	✅ Server-safe	✅ Unique per player (by UUID)
+Resource Pack / Datapack	✅ Native Patchouli support	✅ Fully customisable	⚠️ Static across players
+Why /config fails for personal notebooks:
+
+Server Mismatch: The /config folder resides on the machine running the game. On a dedicated server, players don't have access to the server's file system, nor would you want Player A's notes overwriting Player B's config file.
+
+Global Overwrites: Files in /config apply globally to the entire game client/instance. If a player switches worlds or profiles, their notes would bleed into other save files.
+
+A Better Alternative for Custom Content & Images
+
+To let players and modpack creators add custom pages, images, and entries offline without breaking multiplayer or player-specific data:
+
+Custom Datapacks / Resource Packs: Patchouli reads entries directly from datapacks and resource packs. Modpack authors can drop custom JSONs and images into a simple datapack folder inside .minecraft/saves/world/datapacks/ or a global modpack resource pack.
+
+Export to External File: Keep game data saved properly per-player in the world folder (saves/world/playerdata/), but add an in-game "Export Notes" button that writes a clean Markdown or HTML summary into .minecraft/notebook_exports/ for offline reading.
+
+Ah. I think we have a communication mismatch. The /config file is intended to be both server and client if single player, and split for multiplayer, where the server has the server wide configs and the client side staying local. I figured that the notebook was a client side thing, mostly intended to be an in-game text editor dressed up in game fluff
+
+That clears up the context! Treating the notebook as an in-game client-side text editor with a fancy UI coat of paint shifts how the data should be structured.
+
+However, Patchouli's architecture and standard Minecraft networking introduce a few specific mechanics to keep in mind for a client-side text editor:
+
+Patchouli is Read-Only by Design
+Patchouli is built to display static content defined via JSON files loaded at launch (or via /reload). It does not natively provide a dynamic, multi-page rich-text GUI for typing custom text, deleting lines, or adding images on the fly during gameplay.
+
+While Patchouli can dynamically show/hide predefined entries using player flags, creating a true live text editor inside a standard Patchouli book requires extensive Java GUI overrides to hijack its rendering screen.
+
+How Client-Side Text Storage Works
+If you want notes saved strictly locally on the client's machine (so players can edit them in .txt or .json offline, drop images into a folder, and view them in-game):
+
+Local Directory Structure: You can store files in .minecraft/config/yourmodid/notes/ on the client.
+
+Folder Structure:
+
+Plaintext
+.minecraft/config/yourmodid/
+├── config.json              <-- Mod settings (page limits, keybinds)
+└── notes/
+    ├── volume_1/
+    │   ├── page_1.txt       <-- Editable text files
+    │   └── page_2.txt
+    └── images/              <-- Local PNGs to render inside pages
+Offline Access & Images: Players can open these .txt files with Notepad or VS Code, type notes, save them, and see them updated in-game. Custom images placed in .minecraft/config/yourmodid/notes/images/ can be dynamically loaded onto GUI pages using standard Minecraft texture loading (DynamicTexture).
+
+Server & Multiplayer Behavior
+Because the files live in the local client's .minecraft/config/ directory:
+
+Client Isolation: When playing on a server, Player A's notes remain strictly on Player A's computer. The server never reads or stores them, which makes it lightweight and lag-free for server hosters.
+
+Offline Editing: Players can edit their notes while the game is closed.
+
+Synchronization Limitation: Notes will not transfer if the player switches to a different PC unless they manually copy their .minecraft/config/yourmodid/ folder.
+
+Implementation Options
+If you want an in-game text editor, you have two primary options:
+
+Approach	Patchouli GUI Hijack	Custom Screen / GUI
+How It Works	Override Patchouli's book screen to render active text fields over standard book textures.	Create a custom Screen class using vanilla rendering/UI libraries (like Cloth Config, Lava3D, or raw Canvas).
+Effort	High (fighting Patchouli's read-only layout).	Moderate (complete control over text fields, cursor, multi-page flipping).
+Image Loading	Hard to integrate custom dynamic local paths.	Flexible (DynamicTexture allows loading .png directly from /config/).
+Show how to create a custom Minecraft client Screen class for an editable multi-page book that reads text files from /config.
+
+Creating a custom Screen class gives you direct control over keyboard input, page flipping, rendering custom book textures, and reading/writing directly to standard .txt files in .minecraft/config/.
+
+Below is a complete, lightweight implementation for modern Fabric/Forge (1.20+) using vanilla EditBox (or multi-line text components) and standard Java java.nio.file I/O.
+
+1. Directory Structure Setup
+When the GUI opens, it ensures .minecraft/config/notebook/notes/ exists.
+
+Plaintext
+.minecraft/config/notebook/
+└── notes/
+    ├── volume_1_page_1.txt
+    ├── volume_1_page_2.txt
+    └── volume_1_page_3.txt
+2. Custom Screen Implementation (NotebookScreen.java)
+Java
+package com.example.notebook.client.gui;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.MultiLineEditBox;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class NotebookScreen extends Screen {
+    private static final ResourceLocation BOOK_TEXTURE = new ResourceLocation("minecraft", "textures/gui/book.png");
+    private static final int IMAGE_WIDTH = 192;
+    private static final int IMAGE_HEIGHT = 192;
+
+    private final Path notesDir;
+    private int currentVolume = 1;
+    private int currentPage = 1;
+    private final int maxPages = 10;
+
+    private MultiLineEditBox textBox;
+
+    public NotebookScreen(int volume) {
+        super(Component.literal("Personal Notebook"));
+        this.currentVolume = volume;
+        this.notesDir = Minecraft.getInstance().gameDirectory.toPath().resolve("config/notebook/notes");
+        ensureDirectoryExists();
+    }
+
+    @Override
+    protected void init() {
+        int leftPos = (this.width - IMAGE_WIDTH) / 2;
+        int topPos = (this.height - IMAGE_HEIGHT) / 2;
+
+        // Editable Multi-Line Text Component
+        this.textBox = new MultiLineEditBox(
+            this.font, 
+            leftPos + 20, 
+            topPos + 20, 
+            140, 
+            130, 
+            Component.literal("Page Content"), 
+            Component.empty()
+        );
+        
+        // Load stored text from /config
+        this.textBox.setValue(loadPageText(currentVolume, currentPage));
+        this.addRenderableWidget(this.textBox);
+
+        // Previous Page Button
+        this.addRenderableWidget(Button.builder(Component.literal("<"), btn -> changePage(-1))
+            .bounds(leftPos + 20, topPos + 155, 20, 20)
+            .build());
+
+        // Next Page Button
+        this.addRenderableWidget(Button.builder(Component.literal(">"), btn -> changePage(1))
+            .bounds(leftPos + 150, topPos + 155, 20, 20)
+            .build());
+    }
+
+    private void changePage(int delta) {
+        saveCurrentPage();
+        int target = currentPage + delta;
+        if (target >= 1 && target <= maxPages) {
+            currentPage = target;
+            this.textBox.setValue(loadPageText(currentVolume, currentPage));
+        }
+    }
+
+    private void saveCurrentPage() {
+        if (this.textBox == null) return;
+        Path pageFile = getPagePath(currentVolume, currentPage);
+        try {
+            Files.writeString(pageFile, this.textBox.getValue());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String loadPageText(int volume, int page) {
+        Path pageFile = getPagePath(volume, page);
+        if (Files.exists(pageFile)) {
+            try {
+                return Files.readString(pageFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
+    }
+
+    private Path getPagePath(int volume, int page) {
+        return notesDir.resolve(String.format("volume_%d_page_%d.txt", volume, page));
+    }
+
+    private void ensureDirectoryExists() {
+        try {
+            Files.createDirectories(notesDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(guiGraphics);
+        
+        // Render Vanilla Book Texture
+        int leftPos = (this.width - IMAGE_WIDTH) / 2;
+        int topPos = (this.height - IMAGE_HEIGHT) / 2;
+        guiGraphics.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+
+        // Render Current Page Indicator
+        String pageStr = currentPage + " / " + maxPages;
+        int strWidth = this.font.width(pageStr);
+        guiGraphics.drawString(this.font, pageStr, leftPos + (IMAGE_WIDTH / 2) - (strWidth / 2), topPos + 160, 0x404040, false);
+
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    }
+
+    @Override
+    public void onClose() {
+        saveCurrentPage(); // Auto-save when closing ESC
+        super.onClose();
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false; // Game continues running in background
+    }
+}
+3. Opening the GUI from an Item Class
+Inside your custom NotebookItem class, open the screen exclusively on the client side:
+
+Java
+@Override
+public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    if (level.isClientSide()) {
+        int volume = 1; // Retrieve volume ID from item NBT if using multiple volumes
+        Minecraft.getInstance().setScreen(new NotebookScreen(volume));
+    }
+    return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
+}
+Instead of doing a text file for each page, can we declare that every 640, 1024, something characters is a new page,with a cap of 64 pages or something like that, and adding an image takes 1/4 or 1/2 a page? With some sort of [manually insert page break here]
+
+Yes, that is completely doable and actually much cleaner to maintain than managing hundreds of individual .txt files.
+
+Instead of splitting files on disk, you store one master file per volume (e.g., config/notebook/notes/volume_1.txt or .json) and let your Java Screen dynamically chunk the text into virtual pages at runtime.
+
+Page Pagination & Formatting Rules
+You can establish a parsing pipeline that breaks raw text into pages using a simple character counter + layout cost system:
+
+Base Character Capacity: ~640 characters fit cleanly on a standard 1-page book layout using standard font height (9px).
+
+Manual Page Breaks: Use a simple tag like [page] or --- in the text. When the parser hits this, it immediately starts a new page regardless of character count.
+
+Inline Images: Use custom tags like [img:image_name.png|half] or [img:image_name.png|full].
+
+A half image reduces the page's character allowance by 50% (~320 chars).
+
+A full image consumes the entire page (0 chars available for text).
+
+Hard Page Cap: Limit the parsed list size to 64 pages (if (pages.size() >= 64) break;).
+
+Java Logic: Text-to-Page Parser
+Instead of forcing players to manually split files, write a parser method in your GUI screen that reads the master string and splits it into a List<NotebookPage>:
+
+Java
+import java.util.ArrayList;
+import java.util.List;
+
+public record NotebookPage(String text, String imagePath, ImageSize imageSize) {}
+public enum ImageSize { NONE, HALF, FULL }
+
+public class PageParser {
+    private static final int MAX_CHARS_PER_PAGE = 640;
+    private static final int MAX_PAGES = 64;
+
+    public static List<NotebookPage> parseVolume(String rawContent) {
+        List<NotebookPage> pages = new ArrayList<>();
+        // Split manual page breaks first
+        String[] manualSections = rawContent.split("\\[page\\]|---");
+
+        for (String section : manualSections) {
+            if (pages.size() >= MAX_PAGES) break;
+            
+            // Extract image tag if present (e.g. [img:flower.png|half])
+            ImageInfo img = extractImageTag(section);
+            String cleanText = section.replaceAll("\\[img:[^\\]]+\\]", "").trim();
+
+            int capacity = MAX_CHARS_PER_PAGE;
+            if (img.size == ImageSize.HALF) capacity /= 2;
+            else if (img.size == ImageSize.FULL) capacity = 0;
+
+            // Split remaining text into page chunks based on calculated capacity
+            if (capacity > 0 && cleanText.length() > capacity) {
+                int index = 0;
+                while (index < cleanText.length() && pages.size() < MAX_PAGES) {
+                    int end = Math.min(index + capacity, cleanText.length());
+                    pages.add(new NotebookPage(cleanText.substring(index, end), img.path, img.size));
+                    index = end;
+                    // Subsequent auto-overflow pages don't carry the image
+                    img = new ImageInfo(null, ImageSize.NONE); 
+                    capacity = MAX_CHARS_PER_PAGE;
+                }
+            } else {
+                pages.add(new NotebookPage(cleanText, img.path, img.size));
+            }
+        }
+        return pages;
+    }
+
+    private record ImageInfo(String path, ImageSize size) {}
+
+    private static ImageInfo extractImageTag(String text) {
+        // Regex / string search for [img:filename.png|half]
+        if (text.contains("[img:")) {
+            int start = text.indexOf("[img:") + 5;
+            int end = text.indexOf("]", start);
+            if (end > start) {
+                String[] parts = text.substring(start, end).split("\\|");
+                ImageSize size = parts.length > 1 && parts[1].equalsIgnoreCase("full") 
+                    ? ImageSize.FULL : ImageSize.HALF;
+                return new ImageInfo(parts[0], size);
+            }
+        }
+        return new ImageInfo(null, ImageSize.NONE);
+    }
+}
+How the Player Interacts with It
+In-Game Editing: When typing in-game, the text box modifies one continuous string. Typing [page] creates an immediate visual split when turning pages.
+
+Offline Editing: A player opens config/notebook/notes/volume_1.txt in Notepad and writes continuous paragraphs. To add an image, they drop map.png into config/notebook/images/ and type:
+
+Plaintext
+Welcome to my journey!
+[img:map.png|half]
+Here is a map of the subterranean root network I explored today.
+[page]
+This text starts on page 2.
+Rendering: When page flipping in NotebookScreen, you simply index into pages.get(currentPage) to pull the exact sub-string and draw the associated image using Minecraft's GuiGraphics or DynamicTexture.
+
+Show how to load local PNG files from the /config folder into DynamicTexture objects and render them in a Minecraft Screen.
+
+To load arbitrary PNG files from outside your mod’s assets (like .minecraft/config/notebook/images/), you convert the raw image file into a NativeImage, register it as a DynamicTexture with Minecraft's TextureManager, and render the resulting ResourceLocation.
+
+Image Loader Helper Class (LocalImageLoader.java)
+This utility handles reading PNG bytes, generating a DynamicTexture, and caching the registered ResourceLocation so you don't reload the image from disk on every render frame.
+
+Java
+package com.example.notebook.client.util;
+
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.resources.ResourceLocation;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LocalImageLoader {
+    private static final Map<String, ResourceLocation> TEXTURE_CACHE = new HashMap<>();
+
+    /**
+     * Loads a PNG from .minecraft/config/notebook/images/filename
+     * Returns a registered ResourceLocation ready for GuiGraphics.blit()
+     */
+    public static ResourceLocation getOrLoadTexture(String fileName) {
+        if (TEXTURE_CACHE.containsKey(fileName)) {
+            return TEXTURE_CACHE.get(fileName);
+        }
+
+        Path imagePath = Minecraft.getInstance().gameDirectory.toPath()
+                .resolve("config/notebook/images").resolve(fileName);
+
+        if (!Files.exists(imagePath)) {
+            return null; // File missing
+        }
+
+        try (InputStream stream = new FileInputStream(imagePath.toFile())) {
+            // 1. Read PNG file into Minecraft's NativeImage format
+            NativeImage nativeImage = NativeImage.read(stream);
+
+            // 2. Wrap NativeImage into a DynamicTexture
+            DynamicTexture dynamicTexture = new DynamicTexture(nativeImage);
+
+            // 3. Register the texture with Minecraft's TextureManager
+            String cleanName = fileName.toLowerCase().replaceAll("[^a-z0-9_.-]", "_");
+            ResourceLocation location = new ResourceLocation("notebook", "dynamic/image_" + cleanName);
+            
+            Minecraft.getInstance().getTextureManager().register(location, dynamicTexture);
+
+            // 4. Cache and return
+            TEXTURE_CACHE.put(fileName, location);
+            return location;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Call when reloading configs or closing the GUI to avoid memory leaks.
+     */
+    public static void clearCache() {
+        TextureManager manager = Minecraft.getInstance().getTextureManager();
+        for (ResourceLocation location : TEXTURE_CACHE.values()) {
+            manager.release(location);
+        }
+        TEXTURE_CACHE.clear();
+    }
+}
+Rendering inside NotebookScreen
+Once you have the ResourceLocation, render it inside your Screen class using guiGraphics.blit().
+
+Here is how you handle rendering both HALF and FULL page images on top of the book background:
+
+Java
+@Override
+public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    this.renderBackground(guiGraphics);
+
+    int leftPos = (this.width - IMAGE_WIDTH) / 2;
+    int topPos = (this.height - IMAGE_HEIGHT) / 2;
+
+    // 1. Render Book GUI Background
+    guiGraphics.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+
+    // Get active page data
+    NotebookPage currentPageData = pages.get(currentPage - 1);
+
+    // 2. Render Dynamic PNG if present
+    if (currentPageData.imagePath() != null) {
+        ResourceLocation customImg = LocalImageLoader.getOrLoadTexture(currentPageData.imagePath());
+
+        if (customImg != null) {
+            if (currentPageData.imageSize() == ImageSize.FULL) {
+                // Draws a 120x120 pixel image taking up the entire inner page space
+                guiGraphics.blit(customImg, leftPos + 36, topPos + 20, 0, 0, 120, 120, 120, 120);
+            } else if (currentPageData.imageSize() == ImageSize.HALF) {
+                // Draws a 120x60 image occupying the top half of the page
+                guiGraphics.blit(customImg, leftPos + 36, topPos + 20, 0, 0, 120, 60, 120, 60);
+            }
+        }
+    }
+
+    super.render(guiGraphics, mouseX, mouseY, partialTick);
+}
+blit Parameter Breakdown
+Java
+guiGraphics.blit(texture, x, y, u, v, width, height, textureWidth, textureHeight);
+x, y: Screen coordinates where the top-left corner of the image will be drawn.
+
+u, v: Texture offset coordinates (set to 0, 0 for raw PNGs).
+
+width, height: The rendered size on the screen (in pixels).
+
+textureWidth, textureHeight: Scale factors matching the original file resolution so Minecraft scales the PNG dynamically without cropping it.
+
+How would you like to refine the screen or text system?
+
+Connect the PageParser, MultiLineEditBox, and Image Loader into a working GUI
+
+Add mouse-over tooltips or image captions to local PNGs
+
+
+
+Gemini is AI and can make mistakes.
+

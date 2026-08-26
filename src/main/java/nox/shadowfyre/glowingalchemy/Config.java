@@ -6,10 +6,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+
+    // -------------------------------------------------------------------------
+    // Template entries (from NeoForge example — kept for reference)
+    // TODO: clean these out once Config is formalized
+    // -------------------------------------------------------------------------
 
     public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
             .comment("Whether to log the dirt block on common setup")
@@ -23,10 +26,40 @@ public class Config {
             .comment("What you want the introduction message to be for the magic number")
             .define("magicNumberIntroduction", "The magic number is... ");
 
-    // a list of strings that are treated as resource locations for items
     public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
+
+    // -------------------------------------------------------------------------
+    // Notebook
+    // -------------------------------------------------------------------------
+
+    public static final ModConfigSpec.BooleanValue NOTEBOOK_TRACK_COORDINATES = BUILDER
+            .comment(
+                "When enabled, a notebook's last known coordinates (dimension, X, Y, Z)",
+                "are written to the top of its volume .txt file whenever the item",
+                "leaves a player's inventory (dropped, death, placed in container).",
+                "Readable offline even if the game is closed.",
+                "Default: true"
+            )
+            .define("notebook.trackCoordinates", true);
+
+    public static final ModConfigSpec.IntValue NOTEBOOK_MAX_VOLUMES = BUILDER
+            .comment(
+                "Maximum number of notebook volumes a player can create.",
+                "Increase this if you somehow fill a shelf's worth of journals.",
+                "Default: 99"
+            )
+            .defineInRange("notebook.maxVolumes", 99, 1, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.IntValue NOTEBOOK_MAX_PAGES = BUILDER
+            .comment(
+                "Maximum number of pages per notebook volume.",
+                "Must be between 1 and 256. Default: 96"
+            )
+            .defineInRange("notebook.maxPages", 96, 1, 256);
+
+    // -------------------------------------------------------------------------
 
     static final ModConfigSpec SPEC = BUILDER.build();
 

@@ -17,6 +17,7 @@ import nox.shadowfyre.glowingalchemy.datagen.DatagenEngine;
 import nox.shadowfyre.glowingalchemy.debug.BlockListWriter;
 import nox.shadowfyre.glowingalchemy.glowing_things.registry.GT_BlockDefinitions;
 import nox.shadowfyre.glowingalchemy.registry.*;
+import nox.shadowfyre.glowingalchemy.registry.ModDataComponents;
 import org.slf4j.Logger;
 
 
@@ -50,6 +51,7 @@ public class GlowingAlchemy {
 
         RegistrationEngine.registerBlocks(blocks);
         RegistrationEngine.registerBlockItems(blocks);
+        ModDataComponents.register(modEventBus);
         // 4. Hook up event listeners
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);

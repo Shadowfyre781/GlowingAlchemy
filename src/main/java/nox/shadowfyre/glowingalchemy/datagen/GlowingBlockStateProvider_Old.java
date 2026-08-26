@@ -1,5 +1,5 @@
 package nox.shadowfyre.glowingalchemy.datagen;
-
+/*
 import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -389,3 +389,4 @@ public class GlowingBlockStateProvider_Old extends BlockStateProvider {
         return Identifier.fromNamespaceAndPath("glowingalchemy", path);
     }
 }
+*/

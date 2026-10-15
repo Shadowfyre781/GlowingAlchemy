@@ -1,6 +1,6 @@
 package nox.shadowfyre.glowingalchemy.mechanic.groundcover;
 
-import nox.shadowfyre.glowingalchemy.registry.BlockShapes;
+import nox.shadowfyre.glowingalchemy.core.shapebin.BlockShapes;
 
 import java.util.List;
 

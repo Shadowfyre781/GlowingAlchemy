@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.*;
         import  net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import  net.minecraft.client.data.models.model.ModelTemplate;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import nox.shadowfyre.glowingalchemy.registry.BlockDefinition;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.BlockDefinition;
 import nox.shadowfyre.glowingalchemy.registry.BlockFamilyRegistry;
 import net.minecraft.world.level.block.Block;
 

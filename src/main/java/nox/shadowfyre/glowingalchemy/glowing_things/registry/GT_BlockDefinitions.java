@@ -1,10 +1,10 @@
 package nox.shadowfyre.glowingalchemy.glowing_things.registry;
 
 import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowSets;
-import nox.shadowfyre.glowingalchemy.registry.BlockDefinition;
-import nox.shadowfyre.glowingalchemy.registry.BlockDefinitionRegistry;
-import nox.shadowfyre.glowingalchemy.registry.BlockShapes;
-import nox.shadowfyre.glowingalchemy.registry.NamingTemplate;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.BlockDefinition;
+import nox.shadowfyre.glowingalchemy.core.shapebin.BlockShapes;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.NamingTemplate;
+import nox.shadowfyre.glowingalchemy.core.crayonbin.Core_Palette;
 import java.util.List;
 
     public class GT_BlockDefinitions {
@@ -232,9 +232,9 @@ import java.util.List;
                 // =========================================
                 new BlockDefinition("colored_glass", "standard", BlockShapes.ADD_ON_MASONRY_SET, "glass", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("illumiglass", "block", BlockShapes.MASONRY_SET, "glass", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
-                new BlockDefinition("illumiglass", "clear", BlockShapes.SINGLE_ENTRY, "glass", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "clear", BlockShapes.SINGLE_ENTRY, "glass", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
                 new BlockDefinition("illumiglass", "pane", BlockShapes.SINGLE_ENTRY, "glass_pane", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
-                new BlockDefinition("illumiglass", "clear_pane", BlockShapes.SINGLE_ENTRY, "glass_pane", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("illumiglass", "clear_pane", BlockShapes.SINGLE_ENTRY, "glass_pane", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
                 // ==========================================
                 // ICE
                 // ==========================================
@@ -251,16 +251,16 @@ import java.util.List;
                 // ==========================================
                 // CITRINE
                 // ==========================================
-                new BlockDefinition("citrine", "ore", BlockShapes.SINGLE_ENTRY, "citrine_ore", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "ore", BlockShapes.SINGLE_ENTRY, "citrine_ore", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
                 new BlockDefinition("citrine", "block", BlockShapes.SINGLE_ENTRY, "citrine_block", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("citrine", "bud", BlockShapes.SINGLE_ENTRY, "citrine_bud", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("citrine", "bud1", BlockShapes.SINGLE_ENTRY, "citrine_bud_1", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("citrine", "bud2", BlockShapes.SINGLE_ENTRY, "citrine_bud_2", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("citrine", "crystal", BlockShapes.SINGLE_ENTRY, "citrine_crystal", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
-                new BlockDefinition("citrine", "raw_crystal", BlockShapes.SINGLE_ENTRY, "citrine_crystal", "glowing_things",GlowSets.NONE, DEFAULT_NAMING),
-                new BlockDefinition("citrine", "raw_bud", BlockShapes.SINGLE_ENTRY, "citrine_bud", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
-                new BlockDefinition("citrine", "raw_bud1", BlockShapes.SINGLE_ENTRY, "citrine_bud_1", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
-                new BlockDefinition("citrine", "raw_bud2", BlockShapes.SINGLE_ENTRY, "citrine_bud_2", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_crystal", BlockShapes.SINGLE_ENTRY, "citrine_crystal", "glowing_things",Core_Palette.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud", BlockShapes.SINGLE_ENTRY, "citrine_bud", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud1", BlockShapes.SINGLE_ENTRY, "citrine_bud_1", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
+                new BlockDefinition("citrine", "raw_bud2", BlockShapes.SINGLE_ENTRY, "citrine_bud_2", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
                 // ==========================================
                 // LANTERNFRUIT
                 // ==========================================
@@ -280,13 +280,13 @@ import java.util.List;
                 // ==========================================
                 // MISC
                 // ==========================================
-                new BlockDefinition("glowmist", "standard", BlockShapes.SINGLE_ENTRY, "fog", "glowing_things", GlowSets.NONE, DEFAULT_NAMING),
+                new BlockDefinition("glowmist", "standard", BlockShapes.SINGLE_ENTRY, "fog", "glowing_things", Core_Palette.NONE, DEFAULT_NAMING),
                 new BlockDefinition("tiny_glowshroom", "standard", BlockShapes.SINGLE_ENTRY, "mushroom", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING),
                 new BlockDefinition("small_glowshroom", "standard", BlockShapes.SINGLE_ENTRY, "small_mushroom", "glowing_things", GlowSets.ALL_18, DEFAULT_NAMING)
         );
 
-        public static void registerAll() {
-            for (BlockDefinition def : ALL) {BlockDefinitionRegistry.register(def);
+        public static List<BlockDefinition> definitions() {
+            return ALL;
             }
         }
-    }
+

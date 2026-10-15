@@ -1,9 +1,9 @@
 package nox.shadowfyre.glowingalchemy.datagen;
 //
-//import nox.shadowfyre.glowingalchemy.registry.BlockShape;
-//import nox.shadowfyre.glowingalchemy.glowing_things.color.GlowColor;
-//import nox.shadowfyre.glowingalchemy.registry.BlockDefinition;
-//import nox.shadowfyre.glowingalchemy.registry.GeneratedBlock;
+//import nox.shadowfyre.glowingalchemy.core.shapebin.BlockShape;
+//import nox.shadowfyre.glowingalchemy.core.crayonbin.GlowColor;
+//import nox.shadowfyre.glowingalchemy.core.registry.shared.BlockDefinition;
+//import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
 //
 //public final class BlockGenerator {
 //

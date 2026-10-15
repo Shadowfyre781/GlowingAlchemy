@@ -1,32 +1,14 @@
 package nox.shadowfyre.glowingalchemy.glowing_things.color;
 
+import nox.shadowfyre.glowingalchemy.core.crayonbin.GlowSet;
+
 import java.util.List;
 
-import static nox.shadowfyre.glowingalchemy.glowing_things.color.GlowColors.*;
+import static nox.shadowfyre.glowingalchemy.core.crayonbin.GlowColors.*;
 
 public final class GlowSets {
 
     private GlowSets() {}
-    public static final GlowSet FULL_16=
-            new GlowSet("Full_16",
-            List.of(
-                    RED,
-                    ORANGE,
-                    BROWN,
-                    BLACK,
-                    GRAY,
-                    LIGHT_GRAY,
-                    WHITE,
-                    YELLOW,
-                    LIME,
-                    GREEN,
-                    CYAN,
-                    LIGHT_BLUE,
-                    BLUE,
-                    PURPLE,
-                    MAGENTA,
-                    PINK
-            ));
 
     public static final GlowSet PASTEL=
             new GlowSet("Pastel",
@@ -62,26 +44,7 @@ public final class GlowSets {
                     BOLD_MAGENTA,
                     BOLD_PINK
             ));
-    public static final GlowSet VANILLA=
-            new GlowSet("Vanilla",
-                    List.of(
-                            VANILLA_RED,
-                    VANILLA_ORANGE,
-                    VANILLA_BROWN,
-                    VANILLA_BLACK,
-                    VANILLA_GRAY,
-                    VANILLA_LIGHT_GRAY,
-                    VANILLA_WHITE,
-                    VANILLA_YELLOW,
-                    VANILLA_LIME,
-                    VANILLA_GREEN,
-                    VANILLA_CYAN,
-                    VANILLA_LIGHT_BLUE,
-                    VANILLA_BLUE,
-                    VANILLA_PURPLE,
-                    VANILLA_MAGENTA,
-                    VANILLA_PINK
-                    ));
+
 
     public static final GlowSet MONOCHROME=
             new GlowSet("monochrome",
@@ -134,30 +97,14 @@ public final class GlowSets {
                             MAGENTA,
                             PINK
                     ));
-    public static final GlowSet MAPLE=
-            new GlowSet("Maple",
-                    List.of(
-                            RED,
-                            BOLD_RED,
-                            YELLOW,
-                            PURPLE,
-                            PASTEL_PURPLE,
-                            BOLD_PURPLE,
-                            PINK,
-                            GREEN
-                    ));
 
     public static final List<GlowSet> ALL_CRAYON_BOXES = List.of(
-            FULL_16,
             PASTEL,
             BOLD,
-            VANILLA,
             MONOCHROME,
-            MAPLE,
             IRIDESCENT,
             ALL_18
     );
-    public static final GlowSet NONE =
-            new GlowSet("None", List.of());
+
 };//defines custom boxes of crayons
 

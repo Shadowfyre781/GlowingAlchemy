@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "glowing_things:block/pastel_yellow_colored_sandstone_pastel"
-  }
-}

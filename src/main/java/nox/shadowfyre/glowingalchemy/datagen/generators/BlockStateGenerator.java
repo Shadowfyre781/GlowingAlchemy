@@ -6,15 +6,13 @@ import net.minecraft.world.level.block.Block;
 //import net.neoforged.neoforge.client.model.generators.ItemModelGenerators;
 //import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import nox.shadowfyre.glowingalchemy.registry.BlockShape;
-import nox.shadowfyre.glowingalchemy.registry.GeneratedBlock;
-import nox.shadowfyre.glowingalchemy.registry.RegistrationEngine;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.RegistrationEngine;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import java.util.List;
 import net.minecraft.core.Holder;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -42,11 +40,15 @@ public final class BlockStateGenerator extends ModelProvider {
                 .map(holder -> (Holder<Block>) holder);
     }
 
+
     @Override
     protected Stream<? extends Holder<Item>> getKnownItems() {
-        // Return empty — item models handled separately later
-        return Stream.empty();
+        return this.blocks.stream()
+                .map(b -> RegistrationEngine.getBlockItem(b.namespace(), b.name()))
+                .filter(Objects::nonNull)
+                .map(holder -> (Holder<Item>) holder);
     }
+
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -67,11 +69,17 @@ public final class BlockStateGenerator extends ModelProvider {
         }
     }
 
-    public static void run(List<GeneratedBlock> blocks, GatherDataEvent.Client event) {
-        // One provider per namespace
-        event.createProvider(output ->
-                new BlockStateGenerator(output, "glowingalchemy", blocks));
-        event.createProvider(output ->
-                new BlockStateGenerator(output, "glowing_things", blocks));
+    public static void run(
+            List<GeneratedBlock> blocks,
+            GatherDataEvent.Client event
+    ) {
+        blocks.stream()
+                .map(GeneratedBlock::namespace)
+                .distinct()
+                .forEach(namespace ->
+                        event.createProvider(output ->
+                                new BlockStateGenerator(output, namespace, blocks)
+                        )
+                );
     }
 }

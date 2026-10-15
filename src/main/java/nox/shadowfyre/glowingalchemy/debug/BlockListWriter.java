@@ -1,10 +1,10 @@
         package nox.shadowfyre.glowingalchemy.debug;
 
-import nox.shadowfyre.glowingalchemy.registry.BlockDefinitions;
-import nox.shadowfyre.glowingalchemy.registry.ExpansionEngine;
-import nox.shadowfyre.glowingalchemy.registry.GeneratedBlock;
-import nox.shadowfyre.glowingalchemy.registry.RegistrationEngine;
-import nox.shadowfyre.glowingalchemy.glowing_things.registry.GT_BlockDefinitions;
+import nox.shadowfyre.glowingalchemy.core.registry.Core_BlockDefinitions;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.ExpansionEngine;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.RegistrationEngine;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,10 +15,9 @@ public class BlockListWriter {
     // Call this from either hook — pass the output folder root
     public static void write(Path outputDir) {
 
-        BlockDefinitions.registerAll();
-        GT_BlockDefinitions.registerAll();
 
-        List<GeneratedBlock> blocks = ExpansionEngine.generateAll();
+
+        List<GeneratedBlock> blocks = ExpansionEngine.generate(Core_BlockDefinitions.definitions());
 
         int blockCount = 0;
         int blockItemCount = 0;

@@ -6,15 +6,14 @@ import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import nox.shadowfyre.glowingalchemy.registry.GeneratedBlock;
-import nox.shadowfyre.glowingalchemy.registry.RegistrationEngine;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.RegistrationEngine;
 
 import net.minecraft.client.resources.model.sprite.Material;
 //import net.minecraft.client.renderer.RenderType;

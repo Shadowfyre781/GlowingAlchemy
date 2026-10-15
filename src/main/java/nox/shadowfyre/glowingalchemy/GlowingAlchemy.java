@@ -9,15 +9,18 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+import nox.shadowfyre.glowingalchemy.core.registry.Core_BlockRegistry;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.RegistrationEngine;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.ExpansionEngine;
+import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
 import nox.shadowfyre.glowingalchemy.datagen.DatagenEngine;
 import nox.shadowfyre.glowingalchemy.debug.BlockListWriter;
-import nox.shadowfyre.glowingalchemy.glowing_things.registry.GT_BlockDefinitions;
-import nox.shadowfyre.glowingalchemy.registry.*;
-import nox.shadowfyre.glowingalchemy.registry.ModDataComponents;
+import nox.shadowfyre.glowingalchemy.core.registry.Core_BlockDefinitions;
+import nox.shadowfyre.glowingalchemy.notebook.ModDataComponents;
 import org.slf4j.Logger;
 
 
@@ -30,28 +33,28 @@ public class GlowingAlchemy {
     public static final String MODID = "glowingalchemy";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final String GLOWING_THINGS = "glowing_things";
-    public static final String REDSTONE_INDUSTRY = "redstone_industry";
-    public static final String ELEMENTAL_ALCHEMY = "elemental_alchemy";
-
 
 
     // Constructor: Merge all initialization logic here
     public GlowingAlchemy(IEventBus modEventBus, ModContainer modContainer) {
-        // 1. Bind DeferredRegisters to the event bus FIRST
-        RegistrationEngine.register(modEventBus);
-        BlockRegistry.register(modEventBus);
+        // 1. Bind Core's DeferredRegisters to the event bus.
+        Core_BlockRegistry.register(modEventBus);
 
-        // 2. Populate the definition registry
-        BlockDefinitions.registerAll();
-        GT_BlockDefinitions.registerAll();
+        // 2. Tell the shared engine which registers belong to Core.
+        RegistrationEngine.registerNamespace(
+                MODID,
+                Core_BlockRegistry.BLOCKS,
+                Core_BlockRegistry.ITEMS
+        );
 
-        // 3. Expand definitions into GeneratedBlocks and register them
-        List<GeneratedBlock> blocks = ExpansionEngine.generateAll();
+        // 3. Expand only Core's definitions.
+        List<GeneratedBlock> blocks =
+                ExpansionEngine.generate(Core_BlockDefinitions.definitions());
 
+        // 4. Register Core's generated blocks and items.
         RegistrationEngine.registerBlocks(blocks);
         RegistrationEngine.registerBlockItems(blocks);
-        ModDataComponents.register(modEventBus);
+
         // 4. Hook up event listeners
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
@@ -77,14 +80,12 @@ public class GlowingAlchemy {
             // event.accept(EXAMPLE_BLOCK_ITEM);
         }
     }
-    //    private void onGatherData(net.neoforged.neoforge.data.event.GatherDataEvent event) {
-   //         BlockListWriter.write(event.getGenerator().getPackOutput().getOutputFolder());
-   //     }
+
+
     private void onGatherData(GatherDataEvent.Client event) {
         System.out.println("[BlockListWriter] onGatherData fired");
         BlockListWriter.write(Path.of("reports"));
-        BlockListWriter.write(Path.of("reports"));
-        DatagenEngine.run(event);
+        DatagenEngine.run(event, Core_BlockDefinitions.definitions());
     }
 
 

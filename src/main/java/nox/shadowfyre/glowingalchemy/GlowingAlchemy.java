@@ -17,10 +17,9 @@ import nox.shadowfyre.glowingalchemy.core.registry.Core_BlockRegistry;
 import nox.shadowfyre.glowingalchemy.core.registry.shared.RegistrationEngine;
 import nox.shadowfyre.glowingalchemy.core.registry.shared.ExpansionEngine;
 import nox.shadowfyre.glowingalchemy.core.registry.shared.GeneratedBlock;
-import nox.shadowfyre.glowingalchemy.datagen.DatagenEngine;
+import nox.shadowfyre.glowingalchemy.core.datagen.shared.DatagenEngine;
 import nox.shadowfyre.glowingalchemy.debug.BlockListWriter;
 import nox.shadowfyre.glowingalchemy.core.registry.Core_BlockDefinitions;
-import nox.shadowfyre.glowingalchemy.notebook.ModDataComponents;
 import org.slf4j.Logger;
 
 
